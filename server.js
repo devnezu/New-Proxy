@@ -114,7 +114,7 @@ const scriptContent = `
   // Chame esta função quando o documento estiver carregado
   document.addEventListener('DOMContentLoaded', () => {
     removeCSSRules('.inp');
-  });
+  
 `;
 
 const injectContent = (body) => {
