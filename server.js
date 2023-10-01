@@ -1,35 +1,43 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 body {
-  background: linear-gradient(to right, #ff7e5f, #feb47b) fixed !important; /* Background fixo com gradiente */
-  color: #ffffff !important; /* Texto branco */
-  font-family: 'Kanit', Arial, sans-serif !important; /* Fonte do Google (Kanit) */
-  transition: background 0.3s ease-in-out, color 0.3s ease-in-out !important; /* Transições suaves */
+  background: linear-gradient(45deg, #ffcccc, #ffffff, #ccffff) fixed !important; /* Background com gradiente */
+  background-size: 200% 200% !important;
+  animation: gradientAnimation 15s ease infinite !important;
+  color: #333333 !important; /* Texto escuro */
+  font-family: 'Mochiy Pop One', Arial, sans-serif !important; /* Fonte do Google (Mochiy Pop One) */
 }
 
 // Modificações no cabeçalho
 header {
-  background-color: #ff6f61 !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
   padding: 10px !important;
-  border-bottom: 2px solid #ffffff !important;
+  border-bottom: 2px solid #333333 !important;
 }
 
 // Animação simples para os links
 a {
-  color: #ffffff !important;
+  color: #333333 !important;
   text-decoration: none !important;
   padding-bottom: 2px !important;
-  transition: background-size 0.3s ease-in-out, color 0.3s ease-in-out !important;
-  background-image: linear-gradient(currentColor, currentColor) !important;
-  background-repeat: no-repeat !important;
-  background-position: 0% 100% !important;
-  background-size: 0% 2px !important;
+  transition: color 0.3s ease-in-out !important;
 }
 
 a:hover {
-  color: #ff6f61 !important;
-  background-size: 100% 2px !important;
+  color: #ff6600 !important;
 }
 
 // Animação de zoom para imagens
@@ -48,12 +56,13 @@ const scriptContent = `
   style.innerHTML = \`${styleContent}\`;
   document.head.appendChild(style);
 
-  // Importa a fonte do Google (Kanit)
+  // Importa a fonte do Google (Mochiy Pop One)
   const link = document.createElement('link');
-  link.href = 'https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap';
+  link.href = 'https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap';
   link.rel = 'stylesheet';
   document.head.appendChild(link);
 `;
+
 
 const injectContent = (body) => {
   const scriptTag = `<script>${scriptContent}</script>`;
