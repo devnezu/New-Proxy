@@ -158,20 +158,34 @@ const scriptContent = `
       event.clipboardData.setData('text/plain', translatedText);
     });
 
-    // Função para remover o seletor de idioma
-    function removeLanguageSelector() {
+    function adjustLanguageSelector() {
       const inpItems = document.querySelectorAll('.inpItem');
       inpItems.forEach(item => {
-        const nameElement = item.querySelector('.name');
-        if (nameElement && nameElement.textContent.trim() === 'Idioma') {
-          item.innerHTML = '<div class="placeholder" style="height: 34px;"></div>';  // Ajuste a altura conforme necessário
-        }
+          const nameElement = item.querySelector('.name');
+          if (nameElement && nameElement.textContent.trim() === 'Idioma') {
+              const selectElement = item.querySelector('.el-select-dropdown__list');
+              if (selectElement) {
+                  // Limpar opções existentes
+                  selectElement.innerHTML = '';
+                  // Adicionar apenas a opção de Português BR
+                  const portugueseOption = document.createElement('li');
+                  portugueseOption.className = 'el-select-dropdown__item selected';
+                  portugueseOption.innerHTML = '<span>Português BR</span>';
+                  selectElement.appendChild(portugueseOption);
+              }
+              // Definir o placeholder como Português BR e desativar a seleção
+              const inputElement = item.querySelector('.el-input__inner');
+              if (inputElement) {
+                  inputElement.setAttribute('placeholder', 'Português BR');
+                  inputElement.setAttribute('readonly', 'readonly');  // Desativar a seleção
+              }
+          }
       });
-    }
-    
+  }
+ 
   document.addEventListener('DOMContentLoaded', () => {
     translateContent();
-    setTimeout(removeLanguageSelector, 2000); 
+    adjustLanguageSelector();
     const copyButton = document.querySelector('.copy-btn');
     if (copyButton) {
         copyButton.addEventListener('click', () => {
