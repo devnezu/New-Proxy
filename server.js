@@ -74,16 +74,6 @@ function copyToClipboard(text) {
   document.body.removeChild(textarea);
 }
 
-function removeLanguageSelector() {
-  const inpItems = document.querySelectorAll('.inpItem');
-  inpItems.forEach(item => {
-      const nameElement = item.querySelector('.name');
-      if (nameElement && nameElement.textContent.trim() === 'Idioma') {
-          item.remove();
-      }
-  });
-}
-
 const scriptContent = `
   const style = document.createElement('style');
   style.innerHTML = \`${styleContent}\`;
@@ -168,10 +158,20 @@ const scriptContent = `
       event.clipboardData.setData('text/plain', translatedText);
     });
 
-  
+    // Função para remover o seletor de idioma
+    function removeLanguageSelector() {
+      const inpItems = document.querySelectorAll('.inpItem');
+      inpItems.forEach(item => {
+          const nameElement = item.querySelector('.name');
+          if (nameElement && nameElement.textContent.trim() === 'Idioma') {
+              item.remove();
+          }
+      });
+    }
+
   document.addEventListener('DOMContentLoaded', () => {
     translateContent();
-    setTimeout(removeLanguageSelector, 3000); 
+    setTimeout(removeLanguageSelector, 2000); 
     const copyButton = document.querySelector('.copy-btn');
     if (copyButton) {
         copyButton.addEventListener('click', () => {
