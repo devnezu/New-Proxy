@@ -172,28 +172,56 @@ const scriptContent = `
     });
     
     function adjustLanguageSelector() {
+      // Primeira implementação: usando o elemento de entrada
       const inpItems = document.querySelectorAll('.inpItem');
       inpItems.forEach(item => {
           const nameElement = item.querySelector('.name');
           if (nameElement && nameElement.textContent.trim() === 'Idioma') {
-              // Desativar a entrada e atualizar o placeholder
               const inputElement = item.querySelector('.el-input__inner');
               if (inputElement) {
                   inputElement.setAttribute('placeholder', 'Português BR');
-                  inputElement.setAttribute('disabled', 'disabled');  // Desativar a entrada
+                  inputElement.setAttribute('disabled', 'disabled');
               }
   
-              // Esconder o ícone de seta para baixo
               const arrowIcon = item.querySelector('.el-select__caret');
               if (arrowIcon) {
                   arrowIcon.style.display = 'none';
               }
   
-              // Limpar e esconder as opções
               const selectDropdown = item.querySelector('.el-select-dropdown__list');
               if (selectDropdown) {
                   selectDropdown.innerHTML = '';
-                  selectDropdown.style.display = 'none';  // Esconder as opções
+                  selectDropdown.style.display = 'none';
+              }
+          }
+      });
+  
+      // Segunda implementação: usando o menu dropdown
+      const dropdowns = document.querySelectorAll('.el-dropdown');
+      dropdowns.forEach(dropdown => {
+          const languageName = dropdown.querySelector('.language-name');
+          if (languageName) {
+              languageName.textContent = 'Português BR';  // Atualizar o texto exibido
+  
+              // Desativar o menu dropdown
+              const dropdownLink = dropdown.querySelector('.el-dropdown-link');
+              if (dropdownLink) {
+                  dropdownLink.removeAttribute('aria-haspopup');
+                  dropdownLink.removeAttribute('aria-controls');
+                  dropdownLink.classList.remove('el-dropdown-selfdefine');
+                  dropdownLink.classList.remove('el-dropdown-link');
+              }
+  
+              // Esconder o ícone de seta para baixo
+              const arrowIcon = dropdown.querySelector('.el-icon-arrow-down');
+              if (arrowIcon) {
+                  arrowIcon.style.display = 'none';
+              }
+  
+              // Esconder as opções do menu dropdown
+              const dropdownMenu = dropdown.querySelector('.el-dropdown-menu');
+              if (dropdownMenu) {
+                  dropdownMenu.style.display = 'none';
               }
           }
       });
