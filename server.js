@@ -76,6 +76,14 @@ const scriptContent = `
     'Intertwined Fate': 'Destinos Entrelaçados',
     'Only selected limited characters': 'Apenas os personagens Limitados Selecionados',
     'Only selected standart characters': 'Apenas os personagens Mochileiro Selecionados',
+    'Five star character': 'Personagens Cinco Estrelas',
+    'Four star character': 'Personagens Quatro Estrelas',
+    'Five star weapon': 'Armas Cinco Estrelas',
+    'Four star weapon': 'Armas Quatro Estrelas',
+    'Easy search': 'Procura Rápida',
+    'Search': 'Procurar',
+    'Reset': 'Resetar',  
+    'Enter more conditions to query data': 'Selecione mais opções para consultar dados'
   };
 
   // Função de tradução
