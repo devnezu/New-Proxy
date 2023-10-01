@@ -123,12 +123,12 @@ const handleProxyResponse = (proxyRes, req, res) => {
 
       // Adicione o elemento de áudio para reprodução em loop
       body = body.replace('</body>', `
-        <audio id="backgroundMusic" loop autoplay>
+      <audio id="backgroundMusic" loop autoplay>
         <source src="audio.mp3" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
       </audio>
-      </body>
-      `);
+    </body>
+    `);
 
       res.end(body);
     });
