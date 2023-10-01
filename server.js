@@ -101,6 +101,18 @@ const scriptContent = `
   
   // Chame a função de tradução quando o documento estiver carregado
   document.addEventListener('DOMContentLoaded', translateContent);
+
+  // Adicione o botão para iniciar a reprodução da música
+  const startMusicButton = document.createElement('button');
+  startMusicButton.textContent = 'Iniciar Música';
+  startMusicButton.addEventListener('click', () => {
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    if (backgroundMusic.paused) {
+      backgroundMusic.play();
+      startMusicButton.style.display = 'none'; // Esconde o botão após iniciar a música
+    }
+  });
+  document.body.appendChild(startMusicButton);
 `;
 
 const injectContent = (body) => {
@@ -123,7 +135,7 @@ const handleProxyResponse = (proxyRes, req, res) => {
 
       // Adicione o elemento de áudio para reprodução em loop
       body = body.replace('</body>', `
-      <audio id="backgroundMusic" loop autoplay>
+      <audio id="backgroundMusic" loop>
         <source src="audio.mp3" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
       </audio>
