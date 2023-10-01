@@ -74,6 +74,15 @@ function copyToClipboard(text) {
   document.body.removeChild(textarea);
 }
 
+function removeLanguageSelector() {
+  const inpItems = document.querySelectorAll('.inpItem');
+  inpItems.forEach(item => {
+      const nameElement = item.querySelector('.name');
+      if (nameElement && nameElement.textContent.trim() === 'Idioma') {
+          item.remove();
+      }
+  });
+}
 
 const scriptContent = `
   const style = document.createElement('style');
@@ -161,6 +170,8 @@ const scriptContent = `
 
   
   document.addEventListener('DOMContentLoaded', () => {
+    translateContent();
+    removeLanguageSelector();
     const copyButton = document.querySelector('.copy-btn');
     if (copyButton) {
         copyButton.addEventListener('click', () => {
