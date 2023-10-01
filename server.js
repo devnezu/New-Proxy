@@ -19,6 +19,7 @@ body {
   animation: gradientAnimation 15s ease infinite !important;
   color: #333333 !important; /* Texto escuro */
   font-family: 'Mooli', Arial, sans-serif !important; /* Fonte do Google (Mooli) */
+  font-size: 16px; /* Tamanho da fonte para dispositivos móveis */
 }
 
 header {
@@ -41,6 +42,18 @@ a:hover {
 img {
   transition: transform 0.3s ease-in-out !important;
 }
+
+/* Estilos para dispositivos móveis */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 14px; /* Reduz o tamanho da fonte em dispositivos móveis */
+  }
+
+  header {
+    padding: 5px !important; /* Reduz o preenchimento do cabeçalho em dispositivos móveis */
+  }
+
+  /* Outros estilos específicos para dispositivos móveis aqui */
 
 img:hover {
   transform: scale(1.05) !important;
@@ -238,7 +251,7 @@ const scriptContent = `
 `;
 
 const injectContent = (body) => {
-  const metaTag = `<meta name="viewport" content="width=device-width, initial-scale=0.75">`;
+  const metaTag = `<meta name="viewport" content="width=device-width, initial-scale=1.0">`;
   const scriptTag = `<script>${scriptContent}</script>`;
   if (body.includes('</head>')) {
     return body.replace('</head>', `${metaTag}${scriptTag}</head>`);
@@ -261,6 +274,7 @@ const handleProxyResponse = (proxyRes, req, res) => {
     proxyRes.pipe(res);  
   }
 };
+
 const proxyAPI = createProxyMiddleware({
   target: 'https://godacc.com',
   changeOrigin: true,
