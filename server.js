@@ -162,13 +162,13 @@ const scriptContent = `
     function removeLanguageSelector() {
       const inpItems = document.querySelectorAll('.inpItem');
       inpItems.forEach(item => {
-          const nameElement = item.querySelector('.name');
-          if (nameElement && nameElement.textContent.trim() === 'Idioma') {
-              item.remove();
-          }
+        const nameElement = item.querySelector('.name');
+        if (nameElement && nameElement.textContent.trim() === 'Idioma') {
+          item.innerHTML = '<div class="placeholder" style="height: 34px;"></div>';  // Ajuste a altura conforme necessário
+        }
       });
     }
-
+    
   document.addEventListener('DOMContentLoaded', () => {
     translateContent();
     setTimeout(removeLanguageSelector, 2000); 
