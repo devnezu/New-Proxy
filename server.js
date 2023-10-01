@@ -1,50 +1,44 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const cheerio = require('cheerio');
-
-const translations = {
-  "Server": "Servidor da Conta",
-  "Number of limited characters": "Número de Personagens Limitados",
-  "Number of standard characters": "Número de Personagens do Mochileiro",
-  "Number of five-star weapons": "Número de Armas Limitadas",
-  "Gender": "Gênero do Viajante",
-  "male": "Masculino",
-  "female": "Feminino",
-  "Constellation level": "Level de Constelação",
-  "Intertwined Fate": "Destinos Entrelaçados",
-  "Only selected limited characters": "Apenas os personagens Limitados Selecionados",
-  "Only selected standard characters": "Apenas os personagens Mochileiro Selecionados",
-};
 
 const styleContent = `
 body {
-  background: linear-gradient(to bottom, #ffffff, #b3d9ff) fixed !important; /* Background fixo */
-  color: #000000 !important; /* Texto preto */
-  font-family: 'Kanit', Arial, sans-serif !important; /* Fonte do Google (Kanit) */
+  background: linear-gradient(to bottom, #f0f0f0, #a2d5f2) fixed !important; /* Background fixo */
+  color: #333333 !important; /* Texto escuro */
+  font-family: 'Roboto', Arial, sans-serif !important; /* Fonte do Google (Roboto) */
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out !important; /* Transições suaves */
 }
 
 // Modificações no cabeçalho
 header {
-  background-color: #333333 !important;
+  background-color: #00587a !important;
   padding: 10px !important;
+  border-bottom: 2px solid #ffa62b !important;
 }
 
 // Animação simples para os links
 a {
-  transition: color 0.3s ease-in-out !important;
+  color: #00587a !important;
+  text-decoration: none !important;
+  padding-bottom: 2px !important;
+  transition: background-size 0.3s ease-in-out, color 0.3s ease-in-out !important;
+  background-image: linear-gradient(currentColor, currentColor) !important;
+  background-repeat: no-repeat !important;
+  background-position: 0% 100% !important;
+  background-size: 0% 2px !important;
 }
 
 a:hover {
-  color: #ff6600 !important;
+  color: #ffa62b !important;
+  background-size: 100% 2px !important;
 }
 
-// Animação de rotação para imagens
+// Animação de zoom para imagens
 img {
   transition: transform 0.3s ease-in-out !important;
 }
 
 img:hover {
-  transform: rotate(360deg) !important;
+  transform: scale(1.05) !important;
 }
 `;
 
@@ -69,32 +63,6 @@ const injectContent = (body) => {
   return body;
 };
 
-const translateContent = (html) => {
-  const $ = cheerio.load(html);
-  $('.name').each((i, element) => {
-    const text = $(element).text().trim();
-    if(translations[text]) {
-      $(element).text(translations[text]);
-    }
-  });
-
-  $('.el-select-dropdown__item span').each((i, element) => {
-    const text = $(element).text().trim();
-    if(translations[text]) {
-      $(element).text(translations[text]);
-    }
-  });
-
-  $('.el-checkbox__label').each((i, element) => {
-    const text = $(element).text().trim();
-    if(translations[text]) {
-      $(element).text(translations[text]);
-    }
-  });
-
-  return $.html();
-};
-
 const handleProxyResponse = (proxyRes, req, res) => {
   if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
     let bodyChunks = [];
@@ -103,12 +71,11 @@ const handleProxyResponse = (proxyRes, req, res) => {
     });
     proxyRes.on('end', () => {
       let body = Buffer.concat(bodyChunks).toString('utf8');
-      body = translateContent(body);
-      body = injectContent(body);
+      body = injectContent(body);  
       res.end(body);
     });
   } else {
-    proxyRes.pipe(res);
+    proxyRes.pipe(res);  
   }
 };
 
