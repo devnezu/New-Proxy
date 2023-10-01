@@ -1,4 +1,19 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const cheerio = require('cheerio');
+
+const translations = {
+  "Server": "Servidor da Conta",
+  "Number of limited characters": "Número de Personagens Limitados",
+  "Number of standard characters": "Número de Personagens do Mochileiro",
+  "Number of five-star weapons": "Número de Armas Limitadas",
+  "Gender": "Gênero do Viajante",
+  "male": "Masculino",
+  "female": "Feminino",
+  "Constellation level": "Level de Constelação",
+  "Intertwined Fate": "Destinos Entrelaçados",
+  "Only selected limited characters": "Apenas os personagens Limitados Selecionados",
+  "Only selected standard characters": "Apenas os personagens Mochileiro Selecionados",
+};
 
 const styleContent = `
 body {
@@ -54,6 +69,32 @@ const injectContent = (body) => {
   return body;
 };
 
+const translateContent = (html) => {
+  const $ = cheerio.load(html);
+  $('.name').each((i, element) => {
+    const text = $(element).text().trim();
+    if(translations[text]) {
+      $(element).text(translations[text]);
+    }
+  });
+
+  $('.el-select-dropdown__item span').each((i, element) => {
+    const text = $(element).text().trim();
+    if(translations[text]) {
+      $(element).text(translations[text]);
+    }
+  });
+
+  $('.el-checkbox__label').each((i, element) => {
+    const text = $(element).text().trim();
+    if(translations[text]) {
+      $(element).text(translations[text]);
+    }
+  });
+
+  return $.html();
+};
+
 const handleProxyResponse = (proxyRes, req, res) => {
   if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
     let bodyChunks = [];
@@ -62,11 +103,12 @@ const handleProxyResponse = (proxyRes, req, res) => {
     });
     proxyRes.on('end', () => {
       let body = Buffer.concat(bodyChunks).toString('utf8');
-      body = injectContent(body);  
+      body = translateContent(body);
+      body = injectContent(body);
       res.end(body);
     });
   } else {
-    proxyRes.pipe(res);  
+    proxyRes.pipe(res);
   }
 };
 
