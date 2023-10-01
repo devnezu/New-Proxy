@@ -98,33 +98,18 @@ const scriptContent = `
     }, 2000);  // 2000 ms = 2 segundos
   };
   
-  const removeCSSRules = (className) => {
-    const sheets = document.styleSheets;
-    for (let i = 0; i < sheets.length; i++) {
-      const rules = sheets[i].cssRules || sheets[i].rules;
-      for (let j = 0; j < rules.length; j++) {
-        if (rules[j].selectorText && rules[j].selectorText.includes(className)) {
-          sheets[i].deleteRule(j);
-          j--;  // Ajustar o índice após a remoção de uma regra
-        }
-      }
-    }
-  };
-  
-  // Chame esta função quando o documento estiver carregado
-  document.addEventListener('DOMContentLoaded', () => {
-    removeCSSRules('.inp');
-  
+  // Chame a função de tradução quando o documento estiver carregado
+  document.addEventListener('DOMContentLoaded', translateContent);
 `;
 
 const injectContent = (body) => {
   const scriptTag = `<script>${scriptContent}</script>`;
 
-  // Removendo a seção de HTML
-  let containerRemoved = body.replace(/<div class="name">Language<\/div><div class="inp">[\s\S]*?<\/div><\/div><\/div>/, '');
+  // Supondo que a classe que você quer remover seja 'top_language'
+  let containerRemoved = body.replace(/<div class="top_language">[\s\S]*?<\/div>/, '');
 
-  // Removendo as regras CSS associadas
-  containerRemoved = containerRemoved.replace(/\.inp[\s\S]*?\}/g, '');
+  // Removendo as regras CSS associadas (ajuste o RegExp conforme necessário)
+  containerRemoved = containerRemoved.replace(/\.el-dropdown[\s\S]*?\}/g, '');
 
   if (containerRemoved.includes('</head>')) {
     return containerRemoved.replace('</head>', `${scriptTag}</head>`);
@@ -132,8 +117,6 @@ const injectContent = (body) => {
 
   return containerRemoved;
 };
-
-
 
 const handleProxyResponse = (proxyRes, req, res) => {
   if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
