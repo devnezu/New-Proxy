@@ -48,6 +48,23 @@ img:hover {
 `;
 
 // Função para modificar o conteúdo
+// Função para substituir caracteres chineses por palavras em português
+function translateCharacters(str) {
+  const translationMap = {
+    '男': 'Masculino',
+    '级': 'LVL',
+    // ... Adicione outras substituições aqui ...
+  };
+
+  // Aplicar todas as substituições no string
+  for (const [key, value] of Object.entries(translationMap)) {
+    str = str.replace(new RegExp(key, 'g'), value);
+  }
+
+  return str;
+}
+
+// Função para modificar o conteúdo
 function modifyContent() {
   const rows = document.querySelectorAll('.result_table td');
   if (rows.length === 0) return '';
@@ -59,7 +76,9 @@ function modifyContent() {
   const characters = Array.from(document.querySelectorAll('.role_back span')).map(span => span.textContent.trim()).join(',');
   const weapons = Array.from(document.querySelectorAll('.role_back + td img')).map(img => img.nextElementSibling.textContent.trim()).join(',');
 
-  return `#${accountNumber}----${server}----${gender}----${level}----[${characters}]----[${weapons}]`;
+  // Chame translateCharacters para substituir caracteres chineses
+  const modifiedContent = `#${accountNumber}----${server}----${gender}----${level}----[${characters}]----[${weapons}]`;
+  return translateCharacters(modifiedContent);
 }
 
 // Função para copiar para a área de transferência
@@ -123,14 +142,14 @@ const scriptContent = `
   ${copyToClipboard.toString()}
   
   document.addEventListener('DOMContentLoaded', () => {
-      const copyButton = document.querySelector('.copy-btn');
-      if (copyButton) {
-          copyButton.addEventListener('click', () => {
-              const modifiedContent = modifyContent();
-              copyToClipboard(modifiedContent);
-          });
-      }
-  });
+    const copyButton = document.querySelector('.copy-btn');
+    if (copyButton) {
+        copyButton.addEventListener('click', () => {
+            const modifiedContent = modifyContent();
+            copyToClipboard(modifiedContent);
+        });
+    }
+});
 `;
 
 const injectContent = (body) => {
@@ -156,7 +175,6 @@ const handleProxyResponse = (proxyRes, req, res) => {
     proxyRes.pipe(res);  
   }
 };
-
 const proxyAPI = createProxyMiddleware({
   target: 'https://godacc.com',
   changeOrigin: true,
