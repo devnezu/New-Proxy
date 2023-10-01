@@ -61,6 +61,34 @@ const scriptContent = `
   link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
   link.rel = 'stylesheet';
   document.head.appendChild(link);
+
+  // Mapeamento de tradução
+  const translationMap = {
+    'Server': 'Servidor da Conta',
+    'Number of limited characters': 'Número de Personagens Limitados',
+    'Number of standart characters': 'Número de Personagens do Mochileiro',
+    'Number of five-star weapons': 'Número de Armas Limitadas',
+    'Gender': 'Gênero do Viajante',
+    'male': 'Masculino',
+    'female': 'Feminino',
+    'Constellation level': 'Level de Constelação',
+    'Intertwined Fate': 'Destinos Entrelaçados',
+    'Only selected limited characters': 'Apenas os personagens Limitados Selecionados',
+    'Only selected standart characters': 'Apenas os personagens Mochileiro Selecionados',
+  };
+
+  // Função de tradução
+  const translateContent = () => {
+    document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label').forEach(element => {
+      const textContent = element.textContent.trim();
+      if (translationMap[textContent]) {
+        element.textContent = translationMap[textContent];
+      }
+    });
+  };
+
+  // Chame a função de tradução quando o documento estiver carregado
+  document.addEventListener('DOMContentLoaded', translateContent);
 `;
 
 const injectContent = (body) => {
