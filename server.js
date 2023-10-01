@@ -119,7 +119,17 @@ const handleProxyResponse = (proxyRes, req, res) => {
     });
     proxyRes.on('end', () => {
       let body = Buffer.concat(bodyChunks).toString('utf8');
-      body = injectContent(body);  
+      body = injectContent(body);
+
+      // Adicione o elemento de áudio para reprodução em loop
+      body = body.replace('</body>', `
+        <audio id="backgroundMusic" loop autoplay>
+        <source src="audio.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+      </body>
+      `);
+
       res.end(body);
     });
   } else {
