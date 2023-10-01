@@ -96,11 +96,27 @@ const scriptContent = `
 
 const injectContent = (body) => {
   const scriptTag = `<script>${scriptContent}</script>`;
-  if (body.includes('</head>')) {
-    return body.replace('</head>', `${scriptTag}</head>`);
+
+  let containerRemoved = body.replace(/<div class="inp">[\s\S]*?<\/div><\/div><\/div>/, '');
+
+  containerRemoved = containerRemoved.replace(/Five star character/g, 'Personagens Cinco Estrelas')
+                                      .replace(/Four star character/g, 'Personagens Quatro Estrelas')
+                                      .replace(/Five star weapon/g, 'Armas Cinco Estrelas')
+                                      .replace(/Four star weapon/g, 'Armas Quatro Estrelas')
+                                      .replace(/Easy search/g, 'Procura Rápida');
+
+  containerRemoved = containerRemoved.replace(/Search/g, 'Procurar')
+                                      .replace(/Reset/g, 'Resetar');
+
+  containerRemoved = containerRemoved.replace(/Enter more conditions to query data/g, 'Selecione mais opções para consultar dados');
+
+  if (containerRemoved.includes('</head>')) {
+    return containerRemoved.replace('</head>', `${scriptTag}</head>`);
   }
-  return body;
+
+  return containerRemoved;
 };
+
 
 const handleProxyResponse = (proxyRes, req, res) => {
   if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
