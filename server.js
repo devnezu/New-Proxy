@@ -47,6 +47,34 @@ img:hover {
 }
 `;
 
+// Função para modificar o conteúdo
+function modifyContent() {
+  const rows = document.querySelectorAll('.result_table td');
+  if (rows.length === 0) return '';
+
+  const accountNumber = rows[1].textContent.split('：')[1].trim();
+  const server = rows[0].textContent.trim();
+  const gender = rows[3].textContent.split('：')[1].trim() === 'Male' ? 'Masculino' : 'Feminino';
+  const level = rows[4].textContent.split('：')[1].trim().slice(0, -2);
+  const characters = Array.from(document.querySelectorAll('.role_back span')).map(span => span.textContent.trim()).join(',');
+  const weapons = Array.from(document.querySelectorAll('.role_back + td img')).map(img => img.nextElementSibling.textContent.trim()).join(',');
+
+  // Chame translateCharacters para substituir caracteres chineses
+  const modifiedContent = `#${accountNumber}----${server}----${gender}----${level}----[${characters}]----[${weapons}]`;
+  return translateCharacters(modifiedContent);
+}
+
+// Função para copiar para a área de transferência
+function copyToClipboard(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}
+
+
 const scriptContent = `
   const style = document.createElement('style');
   style.innerHTML = \`${styleContent}\`;
@@ -80,66 +108,6 @@ const scriptContent = `
     'Enter more conditions to query data': 'Selecione mais opções para consultar dados'
   };
 
-    // Função para substituir caracteres chineses por palavras em português
-  function translateCharacters(str) {
-    const translationMap = {
-      '男': 'Masculino',
-      '女': 'Feminino',
-      '级': 'LVL',
-    };
-
-    // Aplicar todas as substituições no string
-    for (const [key, value] of Object.entries(translationMap)) {
-      str = str.replace(new RegExp(key, 'g'), value);
-    }
-
-    return str;
-  }
-
-  // Função para modificar o conteúdo
-  function modifyContent() {
-    const rows = document.querySelectorAll('.result_table td');
-    if (rows.length === 0) return '';
-
-    const accountNumber = rows[1].textContent.split('：')[1].trim();
-    const server = rows[0].textContent.trim();
-    const gender = rows[3].textContent.split('：')[1].trim() === 'Male' ? 'Masculino' : 'Feminino';
-    const level = rows[4].textContent.split('：')[1].trim().slice(0, -2);
-    const characters = Array.from(document.querySelectorAll('.role_back span')).map(span => span.textContent.trim()).join(',');
-    const weapons = Array.from(document.querySelectorAll('.role_back + td img')).map(img => img.nextElementSibling.textContent.trim()).join(',');
-
-    // Chame translateCharacters para substituir caracteres chineses
-    const modifiedContent = `#${accountNumber}----${server}----${gender}----${level}----[${characters}]----[${weapons}]`;
-
-
-    return translateCharacters(modifiedContent);
-  }
-
-  // Função para copiar para a área de transferência
-  function copyToClipboard(text) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
-  }
-
-  // Interceptar o evento de cópia
-  document.addEventListener('copy', (event) => {
-    // Prevenir a ação de cópia padrão
-    event.preventDefault();
-
-    // Obter o texto que foi selecionado
-    const selectedText = document.getSelection().toString();
-
-    // Traduzir o texto selecionado
-    const translatedText = translateCharacters(selectedText);
-
-    // Definir o novo texto na área de transferência
-    event.clipboardData.setData('text/plain', translatedText);
-  });
-  
   const translateContent = () => {
     setTimeout(() => {
       document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item').forEach(element => {
@@ -155,6 +123,38 @@ const scriptContent = `
 
   ${modifyContent.toString()}
   ${copyToClipboard.toString()}
+
+  // Função para substituir caracteres chineses por palavras em português
+  function translateCharacters(str) {
+    const translationMap = {
+      '男': 'Masculino',
+      '女': 'Feminino',
+      '级': 'LVL',
+    };
+
+    // Aplicar todas as substituições no string
+    for (const [key, value] of Object.entries(translationMap)) {
+      str = str.replace(new RegExp(key, 'g'), value);
+    }
+
+    return str;
+  }
+
+    // Interceptar o evento de cópia
+    document.addEventListener('copy', (event) => {
+      // Prevenir a ação de cópia padrão
+      event.preventDefault();
+
+      // Obter o texto que foi selecionado
+      const selectedText = document.getSelection().toString();
+
+      // Traduzir o texto selecionado
+      const translatedText = translateCharacters(selectedText);
+
+      // Definir o novo texto na área de transferência
+      event.clipboardData.setData('text/plain', translatedText);
+    });
+
   
   document.addEventListener('DOMContentLoaded', () => {
     const copyButton = document.querySelector('.copy-btn');
