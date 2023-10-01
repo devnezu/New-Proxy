@@ -79,14 +79,17 @@ const scriptContent = `
 
   // Função de tradução
   const translateContent = () => {
-    document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label').forEach(element => {
-      const textContent = element.textContent.trim();
-      if (translationMap[textContent]) {
-        element.textContent = translationMap[textContent];
-      }
-    });
+    // Adicionando um atraso de 2 segundos antes de tentar traduzir o conteúdo
+    setTimeout(() => {
+      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label').forEach(element => {
+        const textContent = element.textContent.trim();
+        if (translationMap[textContent]) {
+          element.textContent = translationMap[textContent];
+        }
+      });
+    }, 2000);  // 2000 ms = 2 segundos
   };
-
+  
   // Chame a função de tradução quando o documento estiver carregado
   document.addEventListener('DOMContentLoaded', translateContent);
 `;
