@@ -14,11 +14,11 @@ const styleContent = `
 }
 
 body {
-  background: linear-gradient(45deg, #ffcccc, #ffffff, #ccffff) fixed !important; /* Background com gradiente */
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,212,255,1) 100%) fixed !important;
   background-size: 200% 200% !important;
   animation: gradientAnimation 15s ease infinite !important;
   color: #333333 !important; /* Texto escuro */
-  font-family: 'Mochiy Pop One', Arial, sans-serif !important; /* Fonte do Google (Mochiy Pop One) */
+  font-family: 'Mooli', Arial, sans-serif !important; /* Fonte do Google (Mooli) */
 }
 
 // Modificações no cabeçalho
@@ -56,13 +56,12 @@ const scriptContent = `
   style.innerHTML = \`${styleContent}\`;
   document.head.appendChild(style);
 
-  // Importa a fonte do Google (Mochiy Pop One)
+  // Importa a fonte do Google (Mooli)
   const link = document.createElement('link');
-  link.href = 'https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap';
+  link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
   link.rel = 'stylesheet';
   document.head.appendChild(link);
 `;
-
 
 const injectContent = (body) => {
   const scriptTag = `<script>${scriptContent}</script>`;
