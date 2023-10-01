@@ -1,12 +1,3 @@
-function setFavicon() {
-  var link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/x-icon';
-  link.href = 'favicon.ico';
-  document.head.appendChild(link);
-}
-
-setFavicon();
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
@@ -54,6 +45,16 @@ img:hover {
 }
 
 `;
+
+function setFavicon() {
+  var link = document.createElement('link');
+  link.rel = 'icon';
+  link.type = 'image/x-icon';
+  link.href = 'favicon.ico';
+  document.head.appendChild(link);
+}
+
+setFavicon();
 
 // Função para modificar o conteúdo
 function modifyContent() {
