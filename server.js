@@ -94,6 +94,59 @@ const scriptContent = `
   document.addEventListener('DOMContentLoaded', translateContent);
 `;
 
+// Função para realizar a conversão dos valores
+function convertValues() {
+  const resultItem = document.querySelector('.result_item');
+
+  // Verifica se o elemento .result_item existe
+  if (resultItem) {
+    // Obtém os elementos com os valores a serem convertidos
+    const numberElement = resultItem.querySelector('td:has(span:contains("No.："))');
+    const genderElement = resultItem.querySelector('td:has(span:contains("Gender："))');
+
+    // Mapeia os valores para suas traduções
+    const genderMap = {
+      'male': 'Masculino',
+      'female': 'Feminino',
+    };
+
+    // Realiza a substituição dos valores
+    if (numberElement) {
+      const numberText = numberElement.textContent.trim().replace('No.：', '#');
+      numberElement.textContent = numberText;
+    }
+
+    if (genderElement) {
+      const genderText = genderElement.textContent.trim().replace('Gender：', '');
+      genderElement.textContent = 'Gênero：' + genderMap[genderText] || genderText;
+    }
+  }
+}
+
+
+// Adiciona um evento de clique aos botões "Copy"
+document.querySelectorAll('.copy-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    // Chama a função de conversão
+    convertValues();
+    
+    // Obtém o texto atual da div .result_item após a conversão
+    const convertedText = document.querySelector('.result_item').textContent.trim();
+    
+    // Copia o texto convertido para a área de transferência
+    const textarea = document.createElement('textarea');
+    textarea.value = convertedText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    
+    // Alerta o usuário que o texto foi copiado
+    alert('Texto copiado para a área de transferência:\n\n' + convertedText);
+  });
+});
+
+
 const injectContent = (body) => {
   const scriptTag = `<script>${scriptContent}</script>`;
   if (body.includes('</head>')) {
