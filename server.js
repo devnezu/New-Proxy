@@ -1,4 +1,5 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
+
 const styleContent = `
 @keyframes gradientAnimation {
   0% {
@@ -20,14 +21,14 @@ body {
   font-family: 'Mooli', Arial, sans-serif !important; /* Fonte do Google (Mooli) */
 }
 
-/* Modificações no cabeçalho */
+// Modificações no cabeçalho
 header {
   background-color: rgba(255, 255, 255, 0.8) !important;
   padding: 10px !important;
   border-bottom: 2px solid #333333 !important;
 }
 
-/* Animação simples para os links */
+// Animação simples para os links
 a {
   color: #333333 !important;
   text-decoration: none !important;
@@ -39,7 +40,7 @@ a:hover {
   color: #ff6600 !important;
 }
 
-/* Animação de zoom para imagens */
+// Animação de zoom para imagens
 img {
   transition: transform 0.3s ease-in-out !important;
 }
@@ -50,72 +51,48 @@ img:hover {
 `;
 
 const scriptContent = `
-// Adiciona o elemento de estilo ao head do documento
-const style = document.createElement('style');
-style.innerHTML = \`${styleContent}\`;
-document.head.appendChild(style);
+  // Adiciona o elemento de estilo ao head do documento
+  const style = document.createElement('style');
+  style.innerHTML = \`${styleContent}\`;
+  document.head.appendChild(style);
 
-// Importa a fonte do Google (Mooli)
-const link = document.createElement('link');
-link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
-link.rel = 'stylesheet';
-document.head.appendChild(link);
+  // Importa a fonte do Google (Mooli)
+  const link = document.createElement('link');
+  link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
+  link.rel = 'stylesheet';
+  document.head.appendChild(link);
 
-const translationMap = {
-  'Server': 'Servidor da Conta',
-  'Number of limited characters': 'Número de Personagens Limitados',
-  'Number of standard characters': 'Número de Personagens do Mochileiro',
-  'Number of five-star weapons': 'Número de Armas Limitadas',
-  'Gender': 'Gênero do Viajante',
-  'male': 'Masculino',
-  'female': 'Feminino',
-  'Language': 'Idioma',
-  'Constellation level': 'Level de Constelação',
-  'Intertwined Fate': 'Destinos Entrelaçados',
-  'Only selected limited characters': 'Apenas os personagens Limitados Selecionados',
-  'Only selected standard characters': 'Apenas os personagens Mochileiro Selecionados',
-  'Five star character': 'Personagens Cinco Estrelas',
-  'Four star character': 'Personagens Quatro Estrelas',
-  'Five star weapon': 'Armas Cinco Estrelas',
-  'Four star weapon': 'Armas Quatro Estrelas',
-  'Easy search': 'Procura Rápida',
-  'Search': 'Procurar',
-  'Reset': 'Resetar',
-  'Enter more conditions to query data': 'Selecione mais opções para consultar dados'
-};
+  // Mapeamento de tradução
+  const translationMap = {
+    'Server': 'Servidor da Conta',
+    'Number of limited characters': 'Número de Personagens Limitados',
+    'Number of standart characters': 'Número de Personagens do Mochileiro',
+    'Number of five-star weapons': 'Número de Armas Limitadas',
+    'Gender': 'Gênero do Viajante',
+    'male': 'Masculino',
+    'female': 'Feminino',
+    'Language': 'Idioma',
+    'Constellation level': 'Level de Constelação',
+    'Intertwined Fate': 'Destinos Entrelaçados',
+    'Only selected limited characters': 'Apenas os personagens Limitados Selecionados',
+    'Only selected standart characters': 'Apenas os personagens Mochileiro Selecionados',
+  };
 
-// Função para remover o elemento pela classe
-const removeElementByClass = (className) => {
-  const element = document.querySelector(\`.${className}\`);
-  if (element) {
-    element.parentNode.removeChild(element);
-    console.log(\`Element with class ${className} removed.\`);
-  } else {
-    console.log(\`Element with class ${className} not found.\`);
-  }
-};
-
-
-// Função de tradução
-const translateContent = () => {
-  // Adicionando um atraso de 2 segundos antes de tentar traduzir o conteúdo
-  setTimeout(() => {
-    document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label').forEach(element => {
-      const textContent = element.textContent.trim();
-      if (translationMap[textContent]) {
-        element.textContent = translationMap[textContent];
-      }
-    });
-
-    // Removendo os elementos desejados
-    removeElementByClass('top_language');  // para remover a div com a classe 'top_language'
-    removeElementByClass('el-dropdown-menu');  // para remover o ul com a classe 'el-dropdown-menu'
-
-  }, 2000);  // 2000 ms = 2 segundos
-};
-
-// Chame a função de tradução quando o documento estiver carregado
-document.addEventListener('DOMContentLoaded', translateContent);
+  // Função de tradução
+  const translateContent = () => {
+    // Adicionando um atraso de 2 segundos antes de tentar traduzir o conteúdo
+    setTimeout(() => {
+      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label').forEach(element => {
+        const textContent = element.textContent.trim();
+        if (translationMap[textContent]) {
+          element.textContent = translationMap[textContent];
+        }
+      });
+    }, 2000);  // 2000 ms = 2 segundos
+  };
+  
+  // Chame a função de tradução quando o documento estiver carregado
+  document.addEventListener('DOMContentLoaded', translateContent);
 `;
 
 const injectContent = (body) => {
