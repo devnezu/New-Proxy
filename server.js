@@ -225,7 +225,16 @@ const scriptContent = `
               }
           }
       });
-  }  
+  
+      // Alterar o texto "English" para "Português BR" nos itens do menu dropdown
+      const englishItems = document.querySelectorAll('.el-dropdown-menu__item');
+      englishItems.forEach(item => {
+          if (item.textContent.trim() === 'English') {
+              item.textContent = 'Português BR';
+          }
+      });
+  }
+  
 `;
 
 const injectContent = (body) => {
