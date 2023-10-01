@@ -2,22 +2,22 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(to bottom, #f0f0f0, #a2d5f2) fixed !important; /* Background fixo */
-  color: #333333 !important; /* Texto escuro */
-  font-family: 'Roboto', Arial, sans-serif !important; /* Fonte do Google (Roboto) */
+  background: linear-gradient(to right, #ff7e5f, #feb47b) fixed !important; /* Background fixo com gradiente */
+  color: #ffffff !important; /* Texto branco */
+  font-family: 'Kanit', Arial, sans-serif !important; /* Fonte do Google (Kanit) */
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out !important; /* Transições suaves */
 }
 
 // Modificações no cabeçalho
 header {
-  background-color: #00587a !important;
+  background-color: #ff6f61 !important;
   padding: 10px !important;
-  border-bottom: 2px solid #ffa62b !important;
+  border-bottom: 2px solid #ffffff !important;
 }
 
 // Animação simples para os links
 a {
-  color: #00587a !important;
+  color: #ffffff !important;
   text-decoration: none !important;
   padding-bottom: 2px !important;
   transition: background-size 0.3s ease-in-out, color 0.3s ease-in-out !important;
@@ -28,7 +28,7 @@ a {
 }
 
 a:hover {
-  color: #ffa62b !important;
+  color: #ff6f61 !important;
   background-size: 100% 2px !important;
 }
 
