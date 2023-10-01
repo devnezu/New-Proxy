@@ -69,6 +69,7 @@ const translationMap = {
   'Gender': 'Gênero do Viajante',
   'male': 'Masculino',
   'female': 'Feminino',
+  'Language': 'Idioma',
   'Constellation level': 'Level de Constelação',
   'Intertwined Fate': 'Destinos Entrelaçados',
   'Only selected limited characters': 'Apenas os personagens Limitados Selecionados',
@@ -85,11 +86,15 @@ const translationMap = {
 
 // Função para remover o elemento pela classe
 const removeElementByClass = (className) => {
-  const element = document.querySelector(\`.${className}\`);  // correção aqui
+  const element = document.querySelector(\`.${className}\`);
   if (element) {
     element.parentNode.removeChild(element);
+    console.log(\`Element with class ${className} removed.\`);
+  } else {
+    console.log(\`Element with class ${className} not found.\`);
   }
 };
+
 
 // Função de tradução
 const translateContent = () => {
