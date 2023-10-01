@@ -43,10 +43,8 @@ img:hover {
   50% {background-position: 100% 50%;}
   100% {background-position: 0% 50%;}
 }
-
 `;
 
-// Função para modificar o conteúdo
 function modifyContent() {
   const rows = document.querySelectorAll('.result_table td');
   if (rows.length === 0) return '';
@@ -58,12 +56,10 @@ function modifyContent() {
   const characters = Array.from(document.querySelectorAll('.role_back span')).map(span => span.textContent.trim()).join(',');
   const weapons = Array.from(document.querySelectorAll('.role_back + td img')).map(img => img.nextElementSibling.textContent.trim()).join(',');
 
-  // Chame translateCharacters para substituir caracteres chineses
   const modifiedContent = `#${accountNumber}----${server}----${gender}----${level}----[${characters}]----[${weapons}]`;
   return translateCharacters(modifiedContent);
 }
 
-// Função para copiar para a área de transferência
 function copyToClipboard(text) {
   const textarea = document.createElement('textarea');
   textarea.value = text;
@@ -235,25 +231,14 @@ const scriptContent = `
   }
   
 `;
-function setFavicon() {
-  var link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/x-icon';
-  link.href = './favicon.ico';
-  document.head.appendChild(link);
-}
-
-setFavicon();
-
+ 
 const injectContent = (body) => {
-  const faviconTag = `<link rel="icon" type="image/x-icon" href="https://www.catalogo-alphaforcebr.cloud/favicon.ico" />`;
   const scriptTag = `<script>${scriptContent}</script>`;
   if (body.includes('</head>')) {
-    return body.replace('</head>', `${faviconTag}${scriptTag}</head>`);
+    return body.replace('</head>', `${scriptTag}</head>`);
   }
   return body;
 };
-
 
 const handleProxyResponse = (proxyRes, req, res) => {
   if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
