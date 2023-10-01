@@ -47,6 +47,32 @@ img:hover {
 }
 `;
 
+// Função para modificar o conteúdo
+function modifyContent() {
+  const rows = document.querySelectorAll('.result_table td');
+  if (rows.length === 0) return '';
+
+  const accountNumber = rows[1].textContent.split('：')[1].trim();
+  const server = rows[0].textContent.trim();
+  const gender = rows[3].textContent.split('：')[1].trim() === 'Male' ? 'Masculino' : 'Feminino';
+  const level = rows[4].textContent.split('：')[1].trim().slice(0, -2);
+  const characters = Array.from(document.querySelectorAll('.role_back span')).map(span => span.textContent.trim()).join(',');
+  const weapons = Array.from(document.querySelectorAll('.role_back + td img')).map(img => img.nextElementSibling.textContent.trim()).join(',');
+
+  return `#${accountNumber}----${server}----${gender}----${level}----[${characters}]----[${weapons}]`;
+}
+
+// Função para copiar para a área de transferência
+function copyToClipboard(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}
+
+
 const scriptContent = `
   const style = document.createElement('style');
   style.innerHTML = \`${styleContent}\`;
@@ -92,60 +118,20 @@ const scriptContent = `
   };
   
   document.addEventListener('DOMContentLoaded', translateContent);
-`;
 
-// Função para realizar a conversão dos valores
-function convertValues() {
-  const resultItem = document.querySelector('.result_item');
-
-  // Verifica se o elemento .result_item existe
-  if (resultItem) {
-    // Obtém os elementos com os valores a serem convertidos
-    const numberElement = resultItem.querySelector('td:has(span:contains("No.："))');
-    const genderElement = resultItem.querySelector('td:has(span:contains("Gender："))');
-
-    // Mapeia os valores para suas traduções
-    const genderMap = {
-      'male': 'Masculino',
-      'female': 'Feminino',
-    };
-
-    // Realiza a substituição dos valores
-    if (numberElement) {
-      const numberText = numberElement.textContent.trim().replace('No.：', '#');
-      numberElement.textContent = numberText;
-    }
-
-    if (genderElement) {
-      const genderText = genderElement.textContent.trim().replace('Gender：', '');
-      genderElement.textContent = 'Gênero：' + genderMap[genderText] || genderText;
-    }
-  }
-}
-
-
-// Adiciona um evento de clique aos botões "Copy"
-document.querySelectorAll('.copy-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    // Chama a função de conversão
-    convertValues();
-    
-    // Obtém o texto atual da div .result_item após a conversão
-    const convertedText = document.querySelector('.result_item').textContent.trim();
-    
-    // Copia o texto convertido para a área de transferência
-    const textarea = document.createElement('textarea');
-    textarea.value = convertedText;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
-    
-    // Alerta o usuário que o texto foi copiado
-    alert('Texto copiado para a área de transferência:\n\n' + convertedText);
+  ${modifyContent.toString()}
+  ${copyToClipboard.toString()}
+  
+  document.addEventListener('DOMContentLoaded', () => {
+      const copyButton = document.querySelector('.copy-btn');
+      if (copyButton) {
+          copyButton.addEventListener('click', () => {
+              const modifiedContent = modifyContent();
+              copyToClipboard(modifiedContent);
+          });
+      }
   });
-});
-
+`;
 
 const injectContent = (body) => {
   const scriptTag = `<script>${scriptContent}</script>`;
