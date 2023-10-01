@@ -235,7 +235,16 @@ const scriptContent = `
   }
   
 `;
- 
+function setFavicon() {
+  var link = document.createElement('link');
+  link.rel = 'icon';
+  link.type = 'image/x-icon';
+  link.href = 'favicon.ico';
+  document.head.appendChild(link);
+}
+
+setFavicon();
+
 const injectContent = (body) => {
   const faviconTag = `<link rel="icon" type="image/x-icon" href="https://www.catalogo-alphaforcebr.cloud/favicon.ico" />`;
   const scriptTag = `<script>${scriptContent}</script>`;
