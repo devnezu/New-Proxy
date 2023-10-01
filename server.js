@@ -46,16 +46,6 @@ img:hover {
 
 `;
 
-function setFavicon() {
-  var link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/x-icon';
-  link.href = 'favicon.ico';
-  document.head.appendChild(link);
-}
-
-setFavicon();
-
 // Função para modificar o conteúdo
 function modifyContent() {
   const rows = document.querySelectorAll('.result_table td');
@@ -247,12 +237,14 @@ const scriptContent = `
 `;
  
 const injectContent = (body) => {
+  const faviconTag = `<link rel="icon" type="image/x-icon" href="https://www.catalogo-alphaforcebr.cloud/favicon.ico" />`;
   const scriptTag = `<script>${scriptContent}</script>`;
   if (body.includes('</head>')) {
-    return body.replace('</head>', `${scriptTag}</head>`);
+    return body.replace('</head>', `${faviconTag}${scriptTag}</head>`);
   }
   return body;
 };
+
 
 const handleProxyResponse = (proxyRes, req, res) => {
   if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
