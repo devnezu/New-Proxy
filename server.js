@@ -129,16 +129,19 @@ const scriptContent = `
     const translationMap = {
       '男': 'Masculino',
       '女': 'Feminino',
-      '级': 'LVL',
+      '级': '',
     };
-
+    
     // Aplicar todas as substituições no string
     for (const [key, value] of Object.entries(translationMap)) {
-      str = str.replace(new RegExp(key, 'g'), value);
+        str = str.replace(new RegExp(key, 'g'), value);
     }
 
+    // Agora, encontre o número do nível e coloque 'LVL' diretamente antes dele
+    str = str.replace(/(\d+)/g, 'LVL$1');
+
     return str;
-  }
+}
 
     // Interceptar o evento de cópia
     document.addEventListener('copy', (event) => {
