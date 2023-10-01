@@ -171,7 +171,7 @@ const scriptContent = `
   
   document.addEventListener('DOMContentLoaded', () => {
     translateContent();
-    removeLanguageSelector();
+    setTimeout(removeLanguageSelector, 3000); 
     const copyButton = document.querySelector('.copy-btn');
     if (copyButton) {
         copyButton.addEventListener('click', () => {
