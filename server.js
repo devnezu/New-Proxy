@@ -19,7 +19,7 @@ body {
   animation: gradientAnimation 15s ease infinite !important;
   color: #333333 !important; /* Texto escuro */
   font-family: 'Mooli', Arial, sans-serif !important; /* Fonte do Google (Mooli) */
-  font-size: 16px; /* Tamanho da fonte para dispositivos móveis */
+  font-size: 1rem; /* Tamanho da fonte base */
 }
 
 header {
@@ -40,13 +40,24 @@ a:hover {
 }
 
 img {
+  max-width: 100%; /* Imagem responsiva */
+  height: auto;
   transition: transform 0.3s ease-in-out !important;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  flex: 1;
 }
 
 /* Estilos para dispositivos móveis */
 @media screen and (max-width: 768px) {
   body {
-    font-size: 14px; /* Reduz o tamanho da fonte em dispositivos móveis */
+    font-size: 0.875rem; /* Reduz o tamanho da fonte em dispositivos móveis */
   }
 
   header {
@@ -54,6 +65,11 @@ img {
   }
 
   /* Outros estilos específicos para dispositivos móveis aqui */
+}
+
+@media screen and (orientation: landscape) {
+  /* ... estilos específicos para orientação paisagem ... */
+}
 
 img:hover {
   transform: scale(1.05) !important;
@@ -91,6 +107,10 @@ const scriptContent = `
   const style = document.createElement('style');
   style.innerHTML = \`${styleContent}\`;
   document.head.appendChild(style);
+  const metaViewport = document.createElement('meta');
+  metaViewport.name = "viewport";
+  metaViewport.content = "width=device-width, initial-scale=1.0";
+  document.head.appendChild(metaViewport);
 
   const link = document.createElement('link');
   link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
