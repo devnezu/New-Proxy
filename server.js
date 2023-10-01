@@ -131,7 +131,7 @@ const scriptContent = `
       '女': 'Feminino',
       '级': '',
     };
-    
+
     // Aplicar todas as substituições no string
     for (const [key, value] of Object.entries(translationMap)) {
         str = str.replace(new RegExp(key, 'g'), value);
@@ -171,9 +171,10 @@ const scriptContent = `
 `;
 
 const injectContent = (body) => {
+  const metaTag = `<meta name="viewport" content="width=device-width, initial-scale=0.75">`;
   const scriptTag = `<script>${scriptContent}</script>`;
   if (body.includes('</head>')) {
-    return body.replace('</head>', `${scriptTag}</head>`);
+    return body.replace('</head>', `${metaTag}${scriptTag}</head>`);
   }
   return body;
 };
