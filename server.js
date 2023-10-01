@@ -75,6 +75,14 @@ const scriptContent = `
     'Intertwined Fate': 'Destinos Entrelaçados',
     'Only selected limited characters': 'Apenas os personagens Limitados Selecionados',
     'Only selected standart characters': 'Apenas os personagens Mochileiro Selecionados',
+    'Five star character': 'Personagens Cinco Estrelas',
+    'Four star character': 'Personagens Quatro Estrelas',
+    'Five star weapon': 'Armas Cinco Estrelas',
+    'Four star weapon': 'Armas Quatro Estrelas',
+    'Easy search': 'Procura Rápida',
+    'Search': 'Procurar',
+    'Reset': 'Resetar',  // Adicionada a vírgula aqui
+    'Enter more conditions to query data': 'Selecione mais opções para consultar dados'
   };
 
   // Função de tradução
@@ -90,25 +98,43 @@ const scriptContent = `
     }, 2000);  // 2000 ms = 2 segundos
   };
   
-  // Chame a função de tradução quando o documento estiver carregado
-  document.addEventListener('DOMContentLoaded', translateContent);
+  const removeSectionAndStyles = () => {
+    // Remove a seção de HTML
+    const section = document.querySelector('.inp');
+    if (section) {
+      section.parentElement.removeChild(section);
+    }
+    // Remove as regras CSS associadas
+    const styleSheets = document.styleSheets;
+    for (let i = 0; i < styleSheets.length; i++) {
+      const styleSheet = styleSheets[i];
+      let j = 0;
+      while (j < styleSheet.cssRules.length) {
+        const rule = styleSheet.cssRules[j];
+        if (rule.selectorText && rule.selectorText.includes('.inp')) {
+          styleSheet.deleteRule(j);
+        } else {
+          j++;
+        }
+      }
+    }
+  };
+  
+  // Chama a função removeSectionAndStyles quando o documento estiver carregado
+  document.addEventListener('DOMContentLoaded', () => {
+    removeSectionAndStyles();
+    translateContent();
+  });
 `;
 
 const injectContent = (body) => {
   const scriptTag = `<script>${scriptContent}</script>`;
 
-  let containerRemoved = body.replace(/<div class="inp">[\s\S]*?<\/div><\/div><\/div>/, '');
+  // Removendo a seção de HTML
+  let containerRemoved = body.replace(/<div class="name">Language<\/div><div class="inp">[\s\S]*?<\/div><\/div><\/div>/, '');
 
-  containerRemoved = containerRemoved.replace(/Five star character/g, 'Personagens Cinco Estrelas')
-                                      .replace(/Four star character/g, 'Personagens Quatro Estrelas')
-                                      .replace(/Five star weapon/g, 'Armas Cinco Estrelas')
-                                      .replace(/Four star weapon/g, 'Armas Quatro Estrelas')
-                                      .replace(/Easy search/g, 'Procura Rápida');
-
-  containerRemoved = containerRemoved.replace(/Search/g, 'Procurar')
-                                      .replace(/Reset/g, 'Resetar');
-
-  containerRemoved = containerRemoved.replace(/Enter more conditions to query data/g, 'Selecione mais opções para consultar dados');
+  // Removendo as regras CSS associadas
+  containerRemoved = containerRemoved.replace(/\.inp[\s\S]*?\}/g, '');
 
   if (containerRemoved.includes('</head>')) {
     return containerRemoved.replace('</head>', `${scriptTag}</head>`);
@@ -116,6 +142,7 @@ const injectContent = (body) => {
 
   return containerRemoved;
 };
+
 
 
 const handleProxyResponse = (proxyRes, req, res) => {
