@@ -109,6 +109,7 @@ const scriptContent = `
   };
 
   const translateContent = () => {
+    document.body.style.zoom = "75%"; 
     setTimeout(() => {
       document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item').forEach(element => {
         const textContent = element.textContent.trim();
