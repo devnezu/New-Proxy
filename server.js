@@ -1,25 +1,12 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 body {
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,212,255,1) 100%) fixed !important;
   background-size: 200% 200% !important;
   animation: gradientAnimation 15s ease infinite !important;
   color: #333333 !important; /* Texto escuro */
   font-family: 'Mooli', Arial, sans-serif !important; /* Fonte do Google (Mooli) */
-  font-size: 1rem; /* Tamanho da fonte base */
 }
 
 header {
@@ -40,35 +27,7 @@ a:hover {
 }
 
 img {
-  max-width: 100%; /* Imagem responsiva */
-  height: auto;
   transition: transform 0.3s ease-in-out !important;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.item {
-  flex: 1;
-}
-
-/* Estilos para dispositivos móveis */
-@media screen and (max-width: 768px) {
-  body {
-    font-size: 0.875rem; /* Reduz o tamanho da fonte em dispositivos móveis */
-  }
-
-  header {
-    padding: 5px !important; /* Reduz o preenchimento do cabeçalho em dispositivos móveis */
-  }
-
-  /* Outros estilos específicos para dispositivos móveis aqui */
-}
-
-@media screen and (orientation: landscape) {
-  /* ... estilos específicos para orientação paisagem ... */
 }
 
 img:hover {
@@ -107,10 +66,6 @@ const scriptContent = `
   const style = document.createElement('style');
   style.innerHTML = \`${styleContent}\`;
   document.head.appendChild(style);
-  const metaViewport = document.createElement('meta');
-  metaViewport.name = "viewport";
-  metaViewport.content = "width=device-width, initial-scale=1.0";
-  document.head.appendChild(metaViewport);
 
   const link = document.createElement('link');
   link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
@@ -271,10 +226,9 @@ const scriptContent = `
 `;
 
 const injectContent = (body) => {
-  const metaTag = `<meta name="viewport" content="width=device-width, initial-scale=1.0">`;
   const scriptTag = `<script>${scriptContent}</script>`;
   if (body.includes('</head>')) {
-    return body.replace('</head>', `${metaTag}${scriptTag}</head>`);
+    return body.replace('</head>', `${scriptTag}</head>`);
   }
   return body;
 };
