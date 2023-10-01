@@ -172,29 +172,32 @@ const scriptContent = `
     });
     
     function adjustLanguageSelector() {
-        const inpItems = document.querySelectorAll('.inpItem');
-        inpItems.forEach(item => {
-            const nameElement = item.querySelector('.name');
-            if (nameElement && nameElement.textContent.trim() === 'Idioma') {
-                // Atualizar o placeholder
-                const inputElement = item.querySelector('.el-input__inner');
-                if (inputElement) {
-                    inputElement.setAttribute('placeholder', 'Português BR');
-                    inputElement.setAttribute('readonly', 'readonly');  // Desativar a seleção
-                }
-    
-                // Limpar e substituir opções
-                const selectDropdown = item.querySelector('.el-select-dropdown__list');
-                if (selectDropdown) {
-                    selectDropdown.innerHTML = '';
-                    const portugueseOption = document.createElement('li');
-                    portugueseOption.className = 'el-select-dropdown__item selected';
-                    portugueseOption.innerHTML = '<span>Português BR</span>';
-                    selectDropdown.appendChild(portugueseOption);
-                }
-            }
-        });
-    }
+      const inpItems = document.querySelectorAll('.inpItem');
+      inpItems.forEach(item => {
+          const nameElement = item.querySelector('.name');
+          if (nameElement && nameElement.textContent.trim() === 'Idioma') {
+              // Desativar a entrada e atualizar o placeholder
+              const inputElement = item.querySelector('.el-input__inner');
+              if (inputElement) {
+                  inputElement.setAttribute('placeholder', 'Português BR');
+                  inputElement.setAttribute('disabled', 'disabled');  // Desativar a entrada
+              }
+  
+              // Esconder o ícone de seta para baixo
+              const arrowIcon = item.querySelector('.el-select__caret');
+              if (arrowIcon) {
+                  arrowIcon.style.display = 'none';
+              }
+  
+              // Limpar e esconder as opções
+              const selectDropdown = item.querySelector('.el-select-dropdown__list');
+              if (selectDropdown) {
+                  selectDropdown.innerHTML = '';
+                  selectDropdown.style.display = 'none';  // Esconder as opções
+              }
+          }
+      });
+  }  
 `;
 
 const injectContent = (body) => {
