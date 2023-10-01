@@ -98,32 +98,22 @@ const scriptContent = `
     }, 2000);  // 2000 ms = 2 segundos
   };
   
-  const removeSectionAndStyles = () => {
-    // Remove a seção de HTML
-    const section = document.querySelector('.inp');
-    if (section) {
-      section.parentElement.removeChild(section);
-    }
-    // Remove as regras CSS associadas
-    const styleSheets = document.styleSheets;
-    for (let i = 0; i < styleSheets.length; i++) {
-      const styleSheet = styleSheets[i];
-      let j = 0;
-      while (j < styleSheet.cssRules.length) {
-        const rule = styleSheet.cssRules[j];
-        if (rule.selectorText && rule.selectorText.includes('.inp')) {
-          styleSheet.deleteRule(j);
-        } else {
-          j++;
+  const removeCSSRules = (className) => {
+    const sheets = document.styleSheets;
+    for (let i = 0; i < sheets.length; i++) {
+      const rules = sheets[i].cssRules || sheets[i].rules;
+      for (let j = 0; j < rules.length; j++) {
+        if (rules[j].selectorText && rules[j].selectorText.includes(className)) {
+          sheets[i].deleteRule(j);
+          j--;  // Ajustar o índice após a remoção de uma regra
         }
       }
     }
   };
   
-  // Chama a função removeSectionAndStyles quando o documento estiver carregado
+  // Chame esta função quando o documento estiver carregado
   document.addEventListener('DOMContentLoaded', () => {
-    removeSectionAndStyles();
-    translateContent();
+    removeCSSRules('.inp');
   });
 `;
 
