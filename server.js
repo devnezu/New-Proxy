@@ -2,39 +2,49 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,212,255,1) 100%) fixed !important;
-  background-size: 200% 200% !important;
-  animation: gradientAnimation 15s ease infinite !important;
-  color: #333333 !important; /* Texto escuro */
-  font-family: 'Mooli', Arial, sans-serif !important; /* Fonte do Google (Mooli) */
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,212,255,1) 100%);
+  background-size: 200% 200%;
+  color: #333333;
+  font-family: 'Mooli', Arial, sans-serif;
 }
 
 header {
-  background-color: rgba(255, 255, 255, 0.8) !important;
-  padding: 10px !important;
-  border-bottom: 2px solid #333333 !important;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-bottom: 2px solid #333333;
+  transition: background-color 0.3s ease-in-out;
+}
+
+header:hover {
+  background-color: rgba(255,165,0,0.8); /* color ao fazer hover */
 }
 
 a {
-  color: #333333 !important;
-  text-decoration: none !important;
-  padding-bottom: 2px !important;
-  transition: color 0.3s ease-in-out !important;
+  color: #333333;
+  text-decoration: none;
+  padding-bottom: 2px;
+  transition: color 0.3s ease-in-out;
 }
 
 a:hover {
-  color: #ff6600 !important;
+  color: #ff6600;
 }
 
 img {
-  transition: transform 0.3s ease-in-out !important;
+  transition: transform 0.3s ease-in-out;
 }
 
 img:hover {
-  transform: scale(1.05) !important;
+  transform: scale(1.05);
 }
-`;
 
+@keyframes gradientAnimation {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+`;
 // Função para modificar o conteúdo
 function modifyContent() {
   const rows = document.querySelectorAll('.result_table td');
@@ -71,17 +81,6 @@ const scriptContent = `
   link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
   link.rel = 'stylesheet';
   document.head.appendChild(link);
-  const mouseXPercentage = (event.clientX / window.innerWidth) * 100;
-  const mouseYPercentage = (event.clientY / window.innerHeight) * 100;
-
-  document.body.style.background = \`linear-gradient(\${mouseXPercentage}deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) \${mouseYPercentage}%, rgba(0,212,255,1) 100%) fixed\`;
-
-  document.addEventListener('mousemove', (event) => {
-    const mouseXPercentage = (event.clientX / window.innerWidth) * 100;
-    const mouseYPercentage = (event.clientY / window.innerHeight) * 100;
-
-    document.body.style.background = \`linear-gradient(\${mouseXPercentage}deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) \${mouseYPercentage}%, rgba(0,212,255,1) 100%) fixed\`;
-  });
 
   const translationMap = {
     'Server': 'Servidor da Conta',
