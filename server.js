@@ -158,42 +158,43 @@ const scriptContent = `
       event.clipboardData.setData('text/plain', translatedText);
     });
 
+    // Adie a execução de adjustLanguageSelector por 3 segundos
+    document.addEventListener('DOMContentLoaded', () => {
+        translateContent();
+        setTimeout(adjustLanguageSelector, 3000);
+        const copyButton = document.querySelector('.copy-btn');
+        if (copyButton) {
+            copyButton.addEventListener('click', () => {
+                const modifiedContent = modifyContent();
+                copyToClipboard(modifiedContent);
+            });
+        }
+    });
+    
     function adjustLanguageSelector() {
-      const inpItems = document.querySelectorAll('.inpItem');
-      inpItems.forEach(item => {
-          const nameElement = item.querySelector('.name');
-          if (nameElement && nameElement.textContent.trim() === 'Idioma') {
-              const selectElement = item.querySelector('.el-select-dropdown__list');
-              if (selectElement) {
-                  // Limpar opções existentes
-                  selectElement.innerHTML = '';
-                  // Adicionar apenas a opção de Português BR
-                  const portugueseOption = document.createElement('li');
-                  portugueseOption.className = 'el-select-dropdown__item selected';
-                  portugueseOption.innerHTML = '<span>Português BR</span>';
-                  selectElement.appendChild(portugueseOption);
-              }
-              // Definir o placeholder como Português BR e desativar a seleção
-              const inputElement = item.querySelector('.el-input__inner');
-              if (inputElement) {
-                  inputElement.setAttribute('placeholder', 'Português BR');
-                  inputElement.setAttribute('readonly', 'readonly');  // Desativar a seleção
-              }
-          }
-      });
-  }
- 
-  document.addEventListener('DOMContentLoaded', () => {
-    translateContent();
-    adjustLanguageSelector();
-    const copyButton = document.querySelector('.copy-btn');
-    if (copyButton) {
-        copyButton.addEventListener('click', () => {
-            const modifiedContent = modifyContent();
-            copyToClipboard(modifiedContent);
+        const inpItems = document.querySelectorAll('.inpItem');
+        inpItems.forEach(item => {
+            const nameElement = item.querySelector('.name');
+            if (nameElement && nameElement.textContent.trim() === 'Idioma') {
+                // Atualizar o placeholder
+                const inputElement = item.querySelector('.el-input__inner');
+                if (inputElement) {
+                    inputElement.setAttribute('placeholder', 'Português BR');
+                    inputElement.setAttribute('readonly', 'readonly');  // Desativar a seleção
+                }
+    
+                // Limpar e substituir opções
+                const selectDropdown = item.querySelector('.el-select-dropdown__list');
+                if (selectDropdown) {
+                    selectDropdown.innerHTML = '';
+                    const portugueseOption = document.createElement('li');
+                    portugueseOption.className = 'el-select-dropdown__item selected';
+                    portugueseOption.innerHTML = '<span>Português BR</span>';
+                    selectDropdown.appendChild(portugueseOption);
+                }
+            }
         });
     }
-});
 `;
 
 const injectContent = (body) => {
