@@ -26,20 +26,6 @@ header {
   background-color: rgba(255, 255, 255, 0.8) !important;
   padding: 10px !important;
   border-bottom: 2px solid #333333 !important;
-  position: relative; /* Adicione esta linha */
-}
-
-// Texto "Server"
-#serverText {
-  display: inline-block; /* Adicione esta linha */
-}
-
-// Botão "Iniciar Música"
-#startMusicButton {
-  display: inline-block; /* Adicione esta linha */
-  margin-left: 10px; /* Adicione margem para espaçamento */
-  cursor: pointer;
-  color: #007bff; /* Cor do link */
 }
 
 // Animação simples para os links
@@ -104,7 +90,7 @@ const scriptContent = `
   const translateContent = () => {
     // Adicionando um atraso de 2 segundos antes de tentar traduzir o conteúdo
     setTimeout(() => {
-      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label').forEach(element => {
+      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item').forEach(element => {
         const textContent = element.textContent.trim();
         if (translationMap[textContent]) {
           element.textContent = translationMap[textContent];
@@ -115,22 +101,6 @@ const scriptContent = `
   
   // Chame a função de tradução quando o documento estiver carregado
   document.addEventListener('DOMContentLoaded', translateContent);
-
-  // Adicione o botão para iniciar a reprodução da música
-  const startMusicButton = document.createElement('button');
-  startMusicButton.id = 'startMusicButton'; // Adicione um ID ao botão
-  startMusicButton.textContent = 'Iniciar Música';
-  startMusicButton.addEventListener('click', () => {
-    const backgroundMusic = document.getElementById('backgroundMusic');
-    if (backgroundMusic.paused) {
-      backgroundMusic.play();
-      startMusicButton.style.display = 'none'; // Esconde o botão após iniciar a música
-    }
-  });
-
-  // Adicione o botão ao elemento de cabeçalho
-  const serverText = document.getElementById('serverText');
-  serverText.appendChild(startMusicButton);
 `;
 
 const injectContent = (body) => {
@@ -149,17 +119,7 @@ const handleProxyResponse = (proxyRes, req, res) => {
     });
     proxyRes.on('end', () => {
       let body = Buffer.concat(bodyChunks).toString('utf8');
-      body = injectContent(body);
-
-      // Adicione o elemento de áudio para reprodução em loop
-      body = body.replace('</body>', `
-      <audio id="backgroundMusic" loop autoplay>
-        <source src="audio.mp3" type="audio/mpeg">
-        Seu navegador não suporta o elemento de áudio.
-      </audio>
-    </body>
-    `);
-
+      body = injectContent(body);  
       res.end(body);
     });
   } else {
