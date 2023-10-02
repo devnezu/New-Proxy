@@ -98,6 +98,7 @@ const scriptContent = `
     .menuitem img {
       max-width: 100%;
       height: auto;
+      transition: transform 0.3s ease-in-out;
     }
 
     .menuitem span {
@@ -109,20 +110,22 @@ const scriptContent = `
 
     .menuitem {
       text-align: center;
-      border: 1px solid rgb(255, 255, 255);
+      border: none; /* Remova a borda para uma aparência mais transparente */
       padding: 10px;
       margin: 10px;
-      background-color: #f2f2f2; /* Cor de fundo personalizada */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra personalizada */
-      transition: transform 0.3s ease-in-out;
+      background-color: rgba(255, 255, 255, 0.2); /* Cor de fundo com transparência */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: perspective(1000px) rotateY(0deg); /* Efeito 3D de rotação */
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
     }
 
     .menuitem:hover {
-      transform: scale(1.05);
+      transform: perspective(1000px) rotateY(10deg); /* Rotação 3D ao passar o mouse */
+      background-color: rgba(255, 255, 255, 0.4); /* Aumenta a transparência ao passar o mouse */
     }
   \`;
   document.head.appendChild(customStyle);
-
+  
   const translationMap = {
     'Server': 'Servidor da Conta',
     'Number of limited characters': 'Número de Personagens Limitados',
