@@ -143,7 +143,7 @@ const scriptContent = `
     'Constellation level': 'Level de Constelação',
     'Intertwined Fate': 'Destinos Entrelaçados',
     'Only selected limited characters': 'Apenas os personagens Limitados Selecionados',
-    'Only selected standard characters': 'Apenas os personagens Mochileiro Selecionados',
+    'Only selected standart characters': 'Apenas os personagens Mochileiro Selecionados',
     'Five star character': 'Personagens [5⭐ Stars]',
     'Four star character': 'Personagens [4⭐ Stars]',
     'Five star weapon': 'Armas [5⭐ Stars]',
@@ -195,7 +195,9 @@ const scriptContent = `
         });
     }
   });
-  
+  ${modifyContent.toString()}
+  ${copyToClipboard.toString()}
+
   function adjustLanguageSelector() {
     const inpItems = document.querySelectorAll('.inpItem');
     inpItems.forEach(item => {
