@@ -87,6 +87,10 @@ const scriptContent = `
       --active-shadow-color: rgba(0, 0, 0, 0.4);
       --transition-duration: 0.3s;
       --border-radius: 12px;
+      --input-border-color: #ccc;
+      --input-focus-border-color: #66afe9;
+      --input-shadow-color: rgba(0, 0, 0, 0.1);
+      --checkbox-color: #007BFF;
     }
   
     .menuitem img {
@@ -123,6 +127,49 @@ const scriptContent = `
     .menuitem:active {
       box-shadow: 0 4px 8px var(--active-shadow-color), 0 0 10px var(--active-shadow-color) inset, 0 0 20px rgba(255, 0, 0, 0.7) inset, 0 0 30px rgba(0, 255, 0, 0.7) inset, 0 0 40px rgba(0, 0, 255, 0.7) inset; /* Adiciona um efeito RGB suave nas bordas ao clicar */
     }
+
+    /* Estilização para Dropdown */
+    .el-select-dropdown {
+        border-radius: var(--border-radius);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: var(--primary-bg-color);
+        transition: box-shadow var(--transition-duration) ease-in-out;
+    }
+
+    .el-select-dropdown__item {
+        padding: 10px;
+        transition: background-color var(--transition-duration) ease-in-out;
+    }
+
+    .el-select-dropdown__item:hover {
+        background-color: var(--hover-bg-color);
+    }
+
+    /* Estilização para Input Fields */
+    .el-input__inner {
+        border: 1px solid var(--input-border-color);
+        border-radius: var(--border-radius);
+        padding: 10px;
+        box-shadow: inset 0 1px 2px var(--input-shadow-color);
+        transition: border-color var(--transition-duration) ease-in-out, box-shadow var(--transition-duration) ease-in-out;
+    }
+
+    .el-input__inner:focus {
+        border-color: var(--input-focus-border-color);
+        box-shadow: inset 0 1px 2px var(--input-shadow-color), 0 0 5px var(--input-focus-border-color);
+    }
+
+    /* Estilização para Checkbox */
+    .el-checkbox__inner {
+        border-radius: var(--border-radius);
+        transition: background-color var(--transition-duration) ease-in-out, border-color var(--transition-duration) ease-in-out;
+    }
+
+    .el-checkbox.is-checked .el-checkbox__inner {
+        background-color: var(--checkbox-color);
+        border-color: var(--checkbox-color);
+    }
+  
   \`;
   document.head.appendChild(customStyle);
   
