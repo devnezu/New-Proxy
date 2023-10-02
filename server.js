@@ -122,29 +122,11 @@ const scriptContent = `
     .menuitem:hover {
       transform: perspective(1000px) rotateY(10deg);
       background-color: rgba(255, 255, 255, 0.4);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Adiciona sombra mais intensa ao passar o mouse */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
     }
 
     .menuitem:active {
-      animation: glowing 1s ease-in-out; /* Inicia a animação de brilho ao clicar */
-    }
-
-    @keyframes glowing {
-      0% {
-        background: linear-gradient(90deg, rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255));
-        background-size: 300% 100%;
-        background-position: 100% 50%;
-      }
-      50% {
-        background: linear-gradient(90deg, rgb(0, 0, 255), rgb(255, 0, 0), rgb(0, 255, 0));
-        background-size: 300% 100%;
-        background-position: 100% 50%;
-      }
-      100% {
-        background: linear-gradient(90deg, rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 0, 0));
-        background-size: 300% 100%;
-        background-position: 100% 50%;
-      }
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 0, 0, 0.4) inset, 0 0 20px rgba(255, 0, 0, 0.7) inset, 0 0 30px rgba(0, 255, 0, 0.7) inset, 0 0 40px rgba(0, 0, 255, 0.7) inset; /* Adiciona um efeito RGB suave nas bordas ao clicar */
     }
   \`;
   document.head.appendChild(customStyle);
