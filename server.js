@@ -100,8 +100,6 @@ const scriptContent = `
     'Five star weapon': 'Armas [5⭐ Stars]',
     'Four star weapon': 'Armas [4⭐ Stars]',
     'Easy search': 'Procura Rápida',
-    'Search': 'Procurar',
-    'Reset': 'Resetar',  
     'Enter more conditions to query data': 'Selecione mais opções para consultar dados'
   };
 
@@ -230,6 +228,17 @@ const scriptContent = `
           }
       });
   }
+
+  const replaceImage = () => {
+    const oldImageSrc = "/genshin/static/img/nodata.9844e18.png";
+    const newImageSrc = "https://media.discordapp.net/attachments/1071788462858047511/1149143239484510249/unnamed.webp?ex=651c0cca&is=651abb4a&hm=64e1a03020538cee4f6b20553e426e2461b6a4e90abd18f53566edac4639acc0&=";
+    const imageElement = document.querySelector(\`img[src='${oldImageSrc}']\`);
+    if (imageElement) {
+      imageElement.setAttribute('src', newImageSrc);
+    }
+  };
+  
+  document.addEventListener('DOMContentLoaded', replaceImage);
   
 `;
  
