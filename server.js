@@ -16,7 +16,7 @@ header {
 }
 
 header:hover {
-  background-color: rgba(255,165,0,0.8); 
+  background-color: rgba(255,165,0,0.8);
 }
 
 a {
@@ -44,6 +44,20 @@ img:hover {
   100% {background-position: 0% 50%;}
 }
 `;
+
+function translateCharacters(str) {
+  const translationMap = {
+    '男': 'Masculino',
+    '女': 'Feminino',
+    '级': '',
+  };
+
+  for (const [key, value] of Object.entries(translationMap)) {
+    str = str.replace(new RegExp(key, 'g'), value);
+  }
+
+  return str;
+}
 
 function modifyContent() {
   const rows = document.querySelectorAll('.result_table td');
@@ -231,9 +245,9 @@ const translateContent = () => {
 `;
  
 const injectContent = (body) => {
-  const scriptTag = `<script>${scriptContent}</script>`;
+  const scriptTag = '<script>' + scriptContent + '</script>';
   if (body.includes('</head>')) {
-    return body.replace('</head>', `${scriptTag}</head>`);
+    return body.replace('</head>', scriptTag + '</head>');
   }
   return body;
 };
@@ -246,11 +260,11 @@ const handleProxyResponse = (proxyRes, req, res) => {
     });
     proxyRes.on('end', () => {
       let body = Buffer.concat(bodyChunks).toString('utf8');
-      body = injectContent(body);  
+      body = injectContent(body);
       res.end(body);
     });
   } else {
-    proxyRes.pipe(res);  
+    proxyRes.pipe(res);
   }
 };
 
@@ -262,17 +276,17 @@ const proxyOptions = {
 };
 
 const proxyAPI = createProxyMiddleware({
-  ...proxyOptions,  
+  ...proxyOptions,
   pathRewrite: { '^/api/': '/api/' },
 });
 
 const proxyStatic = createProxyMiddleware({
-  ...proxyOptions,  
+  ...proxyOptions,
   pathRewrite: { '^/genshin/static/': '/genshin/static/' },
 });
 
 const proxyMain = createProxyMiddleware({
-  ...proxyOptions,  
+  ...proxyOptions,
   pathRewrite: { '^/': '/genshin/' },
 });
 
