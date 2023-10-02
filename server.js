@@ -97,22 +97,20 @@ const scriptContent = `
     'Five star weapon': 'Armas [5⭐ Stars]',
     'Four star weapon': 'Armas [4⭐ Stars]',
     'Easy search': 'Procura Rápida',
-    'Search': 'Procurar',
-    'Reset': 'Resetar',  
-    'Enter more conditions to query data': 'Selecione mais opções para consultar dados'
-  };
+    'Enter more conditions to query data': 'Selecione mais algumas opções para exibir as contas disponíveis',
+};
 
-  const translateContent = () => {
+const translateContent = () => {
     document.body.style.zoom = "75%"; 
     setTimeout(() => {
-      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item').forEach(element => {
-        const textContent = element.textContent.trim();
-        if (translationMap[textContent]) {
-          element.textContent = translationMap[textContent];
-        }
-      });
+        document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item').forEach(element => {
+            const textContent = element.textContent.trim();
+            if (translationMap[textContent]) {
+                element.textContent = translationMap[textContent];
+            }
+        });
     }, 2000);  
-  };
+};
   
   document.addEventListener('DOMContentLoaded', translateContent);
 
