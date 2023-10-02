@@ -45,20 +45,6 @@ img:hover {
 }
 `;
 
-function translateCharacters(str) {
-  const translationMap = {
-    '男': 'Masculino',
-    '女': 'Feminino',
-    '级': '',
-  };
-
-  for (const [key, value] of Object.entries(translationMap)) {
-    str = str.replace(new RegExp(key, 'g'), value);
-  }
-
-  return str;
-}
-
 function modifyContent() {
   const rows = document.querySelectorAll('.result_table td');
   if (rows.length === 0) return '';
@@ -82,6 +68,7 @@ function copyToClipboard(text) {
   document.execCommand('copy');
   document.body.removeChild(textarea);
 }
+
 
 const scriptContent = `
   const style = document.createElement('style');
@@ -183,6 +170,29 @@ const scriptContent = `
     }
   }
 
+
+  document.addEventListener('DOMContentLoaded', translateContent);
+
+  ${modifyContent.toString()}
+  ${copyToClipboard.toString()}
+
+  function translateCharacters(str) {
+    const translationMap = {
+      '男': 'Masculino',
+      '女': 'Feminino',
+      '级': '',
+    };
+
+    for (const [key, value] of Object.entries(translationMap)) {
+        str = str.replace(new RegExp(key, 'g'), value);
+    }
+
+    str = str.replace(/(\d+)/g, 'LVL$1');
+
+    return str;
+}
+
+
   document.addEventListener('DOMContentLoaded', () => {
     translateContent();
     setTimeout(adjustLanguageSelector, 3000);
@@ -195,8 +205,6 @@ const scriptContent = `
         });
     }
   });
-  ${modifyContent.toString()}
-  ${copyToClipboard.toString()}
 
   function adjustLanguageSelector() {
     const inpItems = document.querySelectorAll('.inpItem');
