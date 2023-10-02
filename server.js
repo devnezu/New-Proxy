@@ -184,9 +184,7 @@ const scriptContent = `
     for (const [key, value] of Object.entries(translationMap)) {
         str = str.replace(new RegExp(key, 'g'), value);
     }
-
-    str = str.replace(/(\d+)/g, 'LVL$1');
-
+    
     return str;
 }
 
