@@ -98,12 +98,14 @@ const scriptContent = `
     'Four star weapon': 'Armas [4⭐ Stars]',
     'Easy search': 'Procura Rápida',
     'Enter more conditions to query data': 'Selecione mais algumas opções para exibir as contas disponíveis',
+    'Search': 'Buscar',
+    'Reset': 'Redefinir',
 };
 
 const translateContent = () => {
   document.body.style.zoom = "75%"; 
   setTimeout(() => {
-      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item, .desc').forEach(element => {
+      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item, .desc, .btnback span').forEach(element => {
           const textContent = element.textContent.trim();
           if (translationMap[textContent]) {
               element.textContent = translationMap[textContent];
@@ -111,6 +113,7 @@ const translateContent = () => {
       });
   }, 2000);  
 };
+
 
   
   document.addEventListener('DOMContentLoaded', translateContent);
