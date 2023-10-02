@@ -1,7 +1,4 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const minify = require('minify');
-const obfuscator = require('javascript-obfuscator');
-const config = require('./config');
 
 const styleContent = `
 body {
@@ -100,6 +97,9 @@ const scriptContent = `
     'Five star weapon': 'Armas [5⭐ Stars]',
     'Four star weapon': 'Armas [4⭐ Stars]',
     'Easy search': 'Procura Rápida',
+    'Search': 'Procurar',
+    'Reset': 'Resetar',  
+    'Enter more conditions to query data': 'Selecione mais opções para consultar dados'
   };
 
   const translateContent = () => {
@@ -230,84 +230,54 @@ const scriptContent = `
   
 `;
  
-const obfuscateAndMinify = async (code) => {
-  try {
-    const minifiedCode = await minify(code, {
-      js: {
-        compress: true,
-        mangle: true,
-      },
+const injectContent = (body) => {
+  const scriptTag = `<script>${scriptContent}</script>`;
+  if (body.includes('</head>')) {
+    return body.replace('</head>', `${scriptTag}</head>`);
+  }
+  return body;
+};
+
+const handleProxyResponse = (proxyRes, req, res) => {
+  if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
+    let bodyChunks = [];
+    proxyRes.on('data', (chunk) => {
+      bodyChunks.push(chunk);
     });
-
-    const obfuscatedCode = obfuscator.obfuscate(minifiedCode, {
-      compact: true,
-      controlFlowFlattening: true,
-      controlFlowFlatteningThreshold: 1,
-      numbersToExpressions: true,
-      simplify: true,
-      shuffleStringArray: true,
-      splitStrings: true,
-      stringArrayThreshold: 1,
-    }).getObfuscatedCode();
-
-    return obfuscatedCode;
-  } catch (error) {
-    console.error(error);
+    proxyRes.on('end', () => {
+      let body = Buffer.concat(bodyChunks).toString('utf8');
+      body = injectContent(body);  
+      res.end(body);
+    });
+  } else {
+    proxyRes.pipe(res);  
   }
 };
 
-(async () => {
-  const scriptContentObfuscated = await obfuscateAndMinify(scriptContent);
+const proxyAPI = createProxyMiddleware({
+  target: 'https://godacc.com',
+  changeOrigin: true,
+  pathRewrite: { '^/api/': '/api/' },
+  selfHandleResponse: true,
+  onProxyRes: handleProxyResponse,
+});
 
-  const injectContent = (body) => {
-    const scriptTag = `<script>${scriptContentObfuscated}</script>`;
-    if (body.includes('</head>')) {
-      return body.replace('</head>', `${scriptTag}</head>`);
-    }
-    return body;
-  };
+const proxyStatic = createProxyMiddleware({
+  target: 'https://godacc.com',
+  changeOrigin: true,
+  pathRewrite: { '^/genshin/static/': '/genshin/static/' },
+});
 
-  const handleProxyResponse = (proxyRes, req, res) => {
-    if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
-      let bodyChunks = [];
-      proxyRes.on('data', (chunk) => {
-        bodyChunks.push(chunk);
-      });
-      proxyRes.on('end', () => {
-        let body = Buffer.concat(bodyChunks).toString('utf8');
-        body = injectContent(body);  
-        res.end(body);
-      });
-    } else {
-      proxyRes.pipe(res);  
-    }
-  };
+const proxyMain = createProxyMiddleware({
+  target: 'https://godacc.com',
+  changeOrigin: true,
+  pathRewrite: { '^/': '/genshin/' },
+  selfHandleResponse: true,
+  onProxyRes: handleProxyResponse,
+});
 
-  const proxyAPI = createProxyMiddleware({
-    target: config.targetURL,
-    changeOrigin: true,
-    pathRewrite: { '^/api/': '/api/' },
-    selfHandleResponse: true,
-    onProxyRes: handleProxyResponse,
-  });
-
-  const proxyStatic = createProxyMiddleware({
-    target: config.targetURL,
-    changeOrigin: true,
-    pathRewrite: { '^/genshin/static/': '/genshin/static/' },
-  });
-
-  const proxyMain = createProxyMiddleware({
-    target: config.targetURL,
-    changeOrigin: true,
-    pathRewrite: { '^/': '/genshin/' },
-    selfHandleResponse: true,
-    onProxyRes: handleProxyResponse,
-  });
-
-  module.exports = (req, res) => {
-    if (req.url.startsWith('/api')) return proxyAPI(req, res);
-    if (req.url.startsWith('/genshin/static')) return proxyStatic(req, res);
-    return proxyMain(req, res);
-  };
-})();
+module.exports = (req, res) => {
+  if (req.url.startsWith('/api')) return proxyAPI(req, res);
+  if (req.url.startsWith('/genshin/static')) return proxyStatic(req, res);
+  return proxyMain(req, res);
+};
