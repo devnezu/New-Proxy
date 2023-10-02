@@ -96,7 +96,7 @@ const scriptContent = `
   const translationMap = {
     'Server': 'Servidor da Conta',
     'Number of limited characters': 'Número de Personagens Limitados',
-    'Number of standart characters': 'Número de Personagens do Mochileiro',
+    'Number of standard characters': 'Número de Personagens do Mochileiro',
     'Number of five-star weapons': 'Número de Armas Limitadas',
     'Gender': 'Gênero do Viajante',
     'male': 'Masculino',
@@ -105,7 +105,7 @@ const scriptContent = `
     'Constellation level': 'Level de Constelação',
     'Intertwined Fate': 'Destinos Entrelaçados',
     'Only selected limited characters': 'Apenas os personagens Limitados Selecionados',
-    'Only selected standart characters': 'Apenas os personagens Mochileiro Selecionados',
+    'Only selected standard characters': 'Apenas os personagens Mochileiro Selecionados',
     'Five star character': 'Personagens [5⭐ Stars]',
     'Four star character': 'Personagens [4⭐ Stars]',
     'Five star weapon': 'Armas [5⭐ Stars]',
@@ -114,136 +114,109 @@ const scriptContent = `
     'Enter more conditions to query data': 'Selecione mais algumas opções para exibir as contas disponíveis',
     'Search': 'Buscar',
     'Reset': 'Redefinir',
-};
+  };
 
-const translateContent = () => {
-  document.body.style.zoom = "75%"; 
-  setTimeout(() => {
-      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item, .desc, .btnback span').forEach(element => {
-          const textContent = element.textContent.trim();
-          if (translationMap[textContent]) {
-              element.textContent = translationMap[textContent];
-          }
-      });
-  }, 2000);  
-};
+  const translateContent = () => {
+    document.body.style.zoom = "75%"; 
+    setTimeout(() => {
+        document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item, .desc, .btnback span').forEach(element => {
+            const textContent = element.textContent.trim();
+            if (translationMap[textContent]) {
+                element.textContent = translationMap[textContent];
+            }
+        });
+    }, 2000);  
+  };
 
-
-  
   document.addEventListener('DOMContentLoaded', translateContent);
 
-  ${modifyContent.toString()}
-  ${copyToClipboard.toString()}
-
-  function translateCharacters(str) {
-    const translationMap = {
-      '男': 'Masculino',
-      '女': 'Feminino',
-      '级': '',
-    };
-
-    for (const [key, value] of Object.entries(translationMap)) {
-        str = str.replace(new RegExp(key, 'g'), value);
-    }
+  function selectServerAmerica() {
+    const serverDropdownItems = document.querySelectorAll('.el-select-dropdown__item span');
+    let americaItem = null;
     
-    return str;
-}
-
-    document.addEventListener('copy', (event) => {
-      event.preventDefault();
-      const selectedText = document.getSelection().toString();
-      const translatedText = translateCharacters(selectedText);
-      event.clipboardData.setData('text/plain', translatedText);
-    });
-
-    function selectServerAmerica() {
-      const serverDropdownItems = document.querySelectorAll('.el-select-dropdown__item span');
-      let americaItem = null;
-      
-      serverDropdownItems.forEach(item => {
-          if(item.textContent.trim().toLowerCase() === 'america') {
-              americaItem = item;
-          }
-      });
-      
-      if(americaItem) {
-          americaItem.click();
-      }
-  }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        translateContent();
-        setTimeout(adjustLanguageSelector, 3000);
-        setTimeout(selectServerAmerica, 3000);  
-        const copyButton = document.querySelector('.copy-btn');
-        if (copyButton) {
-            copyButton.addEventListener('click', () => {
-                const modifiedContent = modifyContent();
-                copyToClipboard(modifiedContent);
-            });
+    serverDropdownItems.forEach(item => {
+        if(item.textContent.trim().toLowerCase() === 'america') {
+            americaItem = item;
         }
     });
     
-    function adjustLanguageSelector() {
-      const inpItems = document.querySelectorAll('.inpItem');
-      inpItems.forEach(item => {
-          const nameElement = item.querySelector('.name');
-          if (nameElement && nameElement.textContent.trim() === 'Idioma') {
-              const inputElement = item.querySelector('.el-input__inner');
-              if (inputElement) {
-                  inputElement.setAttribute('placeholder', 'Português BR');
-                  inputElement.setAttribute('disabled', 'disabled');
-              }
-  
-              const arrowIcon = item.querySelector('.el-select__caret');
-              if (arrowIcon) {
-                  arrowIcon.style.display = 'none';
-              }
-  
-              const selectDropdown = item.querySelector('.el-select-dropdown__list');
-              if (selectDropdown) {
-                  selectDropdown.innerHTML = '';
-                  selectDropdown.style.display = 'none';
-              }
-          }
-      });
-  
-      const dropdowns = document.querySelectorAll('.el-dropdown');
-      dropdowns.forEach(dropdown => {
-          const languageName = dropdown.querySelector('.language-name');
-          if (languageName) {
-              languageName.textContent = 'Português BR';  // Atualizar o texto exibido
-  
-              const dropdownLink = dropdown.querySelector('.el-dropdown-link');
-              if (dropdownLink) {
-                  dropdownLink.removeAttribute('aria-haspopup');
-                  dropdownLink.removeAttribute('aria-controls');
-                  dropdownLink.classList.remove('el-dropdown-selfdefine');
-                  dropdownLink.classList.remove('el-dropdown-link');
-              }
-  
-              const arrowIcon = dropdown.querySelector('.el-icon-arrow-down');
-              if (arrowIcon) {
-                  arrowIcon.style.display = 'none';
-              }
-  
-              const dropdownMenu = dropdown.querySelector('.el-dropdown-menu');
-              if (dropdownMenu) {
-                  dropdownMenu.style.display = 'none';
-              }
-          }
-      });
-  
-      const englishItems = document.querySelectorAll('.el-dropdown-menu__item');
-      englishItems.forEach(item => {
-          if (item.textContent.trim() === 'English') {
-              item.textContent = 'Português BR';
-          }
-      });
+    if(americaItem) {
+        americaItem.click();
+    }
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    translateContent();
+    setTimeout(adjustLanguageSelector, 3000);
+    setTimeout(selectServerAmerica, 3000);  
+    const copyButton = document.querySelector('.copy-btn');
+    if (copyButton) {
+        copyButton.addEventListener('click', () => {
+            const modifiedContent = modifyContent();
+            copyToClipboard(modifiedContent);
+        });
+    }
+  });
   
+  function adjustLanguageSelector() {
+    const inpItems = document.querySelectorAll('.inpItem');
+    inpItems.forEach(item => {
+        const nameElement = item.querySelector('.name');
+        if (nameElement && nameElement.textContent.trim() === 'Idioma') {
+            const inputElement = item.querySelector('.el-input__inner');
+            if (inputElement) {
+                inputElement.setAttribute('placeholder', 'Português BR');
+                inputElement.setAttribute('disabled', 'disabled');
+            }
+
+            const arrowIcon = item.querySelector('.el-select__caret');
+            if (arrowIcon) {
+                arrowIcon.style.display = 'none';
+            }
+
+            const selectDropdown = item.querySelector('.el-select-dropdown__list');
+            if (selectDropdown) {
+                selectDropdown.innerHTML = '';
+                selectDropdown.style.display = 'none';
+            }
+        }
+    });
+
+    const dropdowns = document.querySelectorAll('.el-dropdown');
+    dropdowns.forEach(dropdown => {
+        const languageName = dropdown.querySelector('.language-name');
+        if (languageName) {
+            languageName.textContent = 'Português BR';  // Atualizar o texto exibido
+
+            const dropdownLink = dropdown.querySelector('.el-dropdown-link');
+            if (dropdownLink) {
+                dropdownLink.removeAttribute('aria-haspopup');
+                dropdownLink.removeAttribute('aria-controls');
+                dropdownLink.classList.remove('el-dropdown-selfdefine');
+                dropdownLink.classList.remove('el-dropdown-link');
+            }
+
+            const arrowIcon = dropdown.querySelector('.el-icon-arrow-down');
+            if (arrowIcon) {
+                arrowIcon.style.display = 'none';
+            }
+
+            const dropdownMenu = dropdown.querySelector('.el-dropdown-menu');
+            if (dropdownMenu) {
+                dropdownMenu.style.display = 'none';
+            }
+        }
+    });
+
+    const englishItems = document.querySelectorAll('.el-dropdown-menu__item');
+    englishItems.forEach(item => {
+        if (item.textContent.trim() === 'English') {
+            item.textContent = 'Português BR';
+        }
+    });
+  }
 `;
- 
+
 const injectContent = (body) => {
   const scriptTag = '<script>' + scriptContent + '</script>';
   if (body.includes('</head>')) {
