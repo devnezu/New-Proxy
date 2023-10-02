@@ -254,26 +254,26 @@ const handleProxyResponse = (proxyRes, req, res) => {
   }
 };
 
-const proxyAPI = createProxyMiddleware({
+const proxyOptions = {
   target: 'https://godacc.com',
   changeOrigin: true,
-  pathRewrite: { '^/api/': '/api/' },
   selfHandleResponse: true,
   onProxyRes: handleProxyResponse,
+};
+
+const proxyAPI = createProxyMiddleware({
+  ...proxyOptions,  
+  pathRewrite: { '^/api/': '/api/' },
 });
 
 const proxyStatic = createProxyMiddleware({
-  target: 'https://godacc.com',
-  changeOrigin: true,
+  ...proxyOptions,  
   pathRewrite: { '^/genshin/static/': '/genshin/static/' },
 });
 
 const proxyMain = createProxyMiddleware({
-  target: 'https://godacc.com',
-  changeOrigin: true,
+  ...proxyOptions,  
   pathRewrite: { '^/': '/genshin/' },
-  selfHandleResponse: true,
-  onProxyRes: handleProxyResponse,
 });
 
 module.exports = (req, res) => {
