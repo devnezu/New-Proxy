@@ -100,7 +100,6 @@ const scriptContent = `
     'Five star weapon': 'Armas [5⭐ Stars]',
     'Four star weapon': 'Armas [4⭐ Stars]',
     'Easy search': 'Procura Rápida',
-    'Enter more conditions to query data': 'Selecione mais algumas opções para exibir as contas disponíveis',
   };
 
   const translateContent = () => {
@@ -158,22 +157,10 @@ const scriptContent = `
       }
   }
 
-    function translateSpecialElements() {
-      // Seleciona o elemento com a classe 'desc' e o atributo 'data-v-08c57ff9'
-      const descElement = document.querySelector('.desc[data-v-08c57ff9]');
-      
-      // Verifica se o elemento foi encontrado
-      if (descElement) {
-          // Altera o texto dentro do elemento
-          descElement.textContent = 'Selecione mais algumas opções para exibir as contas disponíveis';
-      }
-  }
-
     document.addEventListener('DOMContentLoaded', () => {
         translateContent();
         setTimeout(adjustLanguageSelector, 3000);
         setTimeout(selectServerAmerica, 3000);  
-        setTimeout(translateSpecialElements , 3000);
         const copyButton = document.querySelector('.copy-btn');
         if (copyButton) {
             copyButton.addEventListener('click', () => {
