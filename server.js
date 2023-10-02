@@ -132,13 +132,14 @@ const scriptContent = `
     .el-select-dropdown {
         border-radius: var(--border-radius);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        background-color: var(--primary-bg-color);
+        background-color: #ffffff !important;
         transition: box-shadow var(--transition-duration) ease-in-out;
     }
 
     .el-select-dropdown__item {
         padding: 10px;
         transition: background-color var(--transition-duration) ease-in-out;
+        background-color: #ffffff !important;
     }
 
     .el-select-dropdown__item:hover {
@@ -150,6 +151,7 @@ const scriptContent = `
         border: 1px solid var(--input-border-color);
         border-radius: var(--border-radius);
         padding: 10px;
+        background-color: #ffffff !important;
         box-shadow: inset 0 1px 2px var(--input-shadow-color);
         transition: border-color var(--transition-duration) ease-in-out, box-shadow var(--transition-duration) ease-in-out;
     }
