@@ -81,41 +81,51 @@ const scriptContent = `
 
   const customStyle = document.createElement('style');
   customStyle.innerHTML = \`
+    :root {
+      --primary-bg-color: rgba(255, 255, 255, 0.2);
+      --hover-bg-color: rgba(255, 255, 255, 0.4);
+      --active-shadow-color: rgba(0, 0, 0, 0.4);
+      --transition-duration: 0.3s;
+      --border-radius: 12px;
+    }
+  
     .menuitem img {
       max-width: 100%;
       height: auto;
-      transition: transform 0.3s ease-in-out;
+      transition: transform var(--transition-duration) ease-in-out;
     }
-
+  
     .menuitem span {
       display: block;
       text-align: center;
       margin-top: 10px;
       font-weight: bold;
     }
-
+  
     .menuitem {
       text-align: center;
       border: none;
       padding: 10px;
       margin: 10px;
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: var(--primary-bg-color);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: var(--border-radius);
       transform: perspective(1000px) rotateY(0deg);
-      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      transition: transform var(--transition-duration) ease-in-out, background-color var(--transition-duration) ease-in-out, box-shadow var(--transition-duration) ease-in-out;
     }
-
+  
     .menuitem:hover {
       transform: perspective(1000px) rotateY(10deg);
-      background-color: rgba(255, 255, 255, 0.4);
+      background-color: var(--hover-bg-color);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
     }
-
+  
     .menuitem:active {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 0, 0, 0.4) inset, 0 0 20px rgba(255, 0, 0, 0.7) inset, 0 0 30px rgba(0, 255, 0, 0.7) inset, 0 0 40px rgba(0, 0, 255, 0.7) inset; /* Adiciona um efeito RGB suave nas bordas ao clicar */
+      box-shadow: 0 4px 8px var(--active-shadow-color), 0 0 10px var(--active-shadow-color) inset, 0 0 20px rgba(255, 0, 0, 0.7) inset, 0 0 30px rgba(0, 255, 0, 0.7) inset, 0 0 40px rgba(0, 0, 255, 0.7) inset; /* Adiciona um efeito RGB suave nas bordas ao clicar */
     }
   \`;
   document.head.appendChild(customStyle);
+  
   
   const translationMap = {
     'Server': 'Servidor da Conta',
