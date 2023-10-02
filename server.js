@@ -324,18 +324,6 @@ const scriptContent = `
         }
     });
   }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const resetButton = document.querySelector('button.el-button--info');
-    if (resetButton) {
-      resetButton.addEventListener('click', () => {
-        setTimeout(() => {
-          selectServerAmerica();
-        }, 100); // Ajuste o tempo conforme necessário
-      });
-    }
-  });
-  
 `;
 
 const injectContent = (body) => {
