@@ -230,15 +230,18 @@ const scriptContent = `
   }
 
   const replaceImage = () => {
-    const oldImageSrc = "/genshin/static/img/nodata.9844e18.png";
-    const newImageSrc = "https://media.discordapp.net/attachments/1071788462858047511/1149143239484510249/unnamed.webp?ex=651c0cca&is=651abb4a&hm=64e1a03020538cee4f6b20553e426e2461b6a4e90abd18f53566edac4639acc0&=";
-    const imageElement = document.querySelector(\`img[src='${oldImageSrc}']\`);
-    if (imageElement) {
-      imageElement.setAttribute('src', newImageSrc);
-    }
+    setTimeout(() => {
+      const oldImageSrc = "/genshin/static/img/nodata.9844e18.png";
+      const newImageSrc = "https://media.discordapp.net/attachments/1071788462858047511/1149143239484510249/unnamed.webp?ex=651c0cca&is=651abb4a&hm=64e1a03020538cee4f6b20553e426e2461b6a4e90abd18f53566edac4639acc0&=";
+      const imageElement = document.querySelector(\`img[src='${oldImageSrc}']\`);
+      if (imageElement) {
+        imageElement.setAttribute('src', newImageSrc);
+      }
+    }, 10000);  // 10 segundos de atraso
   };
   
   document.addEventListener('DOMContentLoaded', replaceImage);
+  
   
 `;
  
