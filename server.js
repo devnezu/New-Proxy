@@ -101,16 +101,17 @@ const scriptContent = `
 };
 
 const translateContent = () => {
-    document.body.style.zoom = "75%"; 
-    setTimeout(() => {
-        document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item').forEach(element => {
-            const textContent = element.textContent.trim();
-            if (translationMap[textContent]) {
-                element.textContent = translationMap[textContent];
-            }
-        });
-    }, 2000);  
+  document.body.style.zoom = "75%"; 
+  setTimeout(() => {
+      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item, .desc').forEach(element => {
+          const textContent = element.textContent.trim();
+          if (translationMap[textContent]) {
+              element.textContent = translationMap[textContent];
+          }
+      });
+  }, 2000);  
 };
+
   
   document.addEventListener('DOMContentLoaded', translateContent);
 
