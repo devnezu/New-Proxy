@@ -93,6 +93,36 @@ const scriptContent = `
   link.rel = 'stylesheet';
   document.head.appendChild(link);
 
+  const customStyle = document.createElement('style');
+  customStyle.innerHTML = \`
+    .menuitem img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .menuitem span {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .menuitem {
+      text-align: center;
+      border: 1px solid rgb(255, 255, 255);
+      padding: 10px;
+      margin: 10px;
+      background-color: #f2f2f2; /* Cor de fundo personalizada */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra personalizada */
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .menuitem:hover {
+      transform: scale(1.05);
+    }
+  \`;
+  document.head.appendChild(customStyle);
+
   const translationMap = {
     'Server': 'Servidor da Conta',
     'Number of limited characters': 'Número de Personagens Limitados',
