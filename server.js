@@ -16,7 +16,7 @@ header {
 }
 
 header:hover {
-  background-color: rgba(255,165,0,0.8); /* color ao fazer hover */
+  background-color: rgba(255,165,0,0.8); 
 }
 
 a {
@@ -111,7 +111,7 @@ const scriptContent = `
           element.textContent = translationMap[textContent];
         }
       });
-    }, 2000);  // 2000 ms = 2 segundos
+    }, 2000);  
   };
   
   document.addEventListener('DOMContentLoaded', translateContent);
@@ -119,7 +119,6 @@ const scriptContent = `
   ${modifyContent.toString()}
   ${copyToClipboard.toString()}
 
-  // Função para substituir caracteres chineses por palavras em português
   function translateCharacters(str) {
     const translationMap = {
       '男': 'Masculino',
@@ -127,36 +126,41 @@ const scriptContent = `
       '级': '',
     };
 
-    // Aplicar todas as substituições no string
     for (const [key, value] of Object.entries(translationMap)) {
         str = str.replace(new RegExp(key, 'g'), value);
     }
 
-    // Agora, encontre o número do nível e coloque 'LVL' diretamente antes dele
     str = str.replace(/(\d+)/g, 'LVL$1');
 
     return str;
 }
 
-    // Interceptar o evento de cópia
     document.addEventListener('copy', (event) => {
-      // Prevenir a ação de cópia padrão
       event.preventDefault();
-
-      // Obter o texto que foi selecionado
       const selectedText = document.getSelection().toString();
-
-      // Traduzir o texto selecionado
       const translatedText = translateCharacters(selectedText);
-
-      // Definir o novo texto na área de transferência
       event.clipboardData.setData('text/plain', translatedText);
     });
 
-    // Adie a execução de adjustLanguageSelector por 3 segundos
+    function selectServerAmerica() {
+      const serverDropdownItems = document.querySelectorAll('.el-select-dropdown__item span');
+      let americaItem = null;
+      
+      serverDropdownItems.forEach(item => {
+          if(item.textContent.trim().toLowerCase() === 'america') {
+              americaItem = item;
+          }
+      });
+      
+      if(americaItem) {
+          americaItem.click();
+      }
+  }
+
     document.addEventListener('DOMContentLoaded', () => {
         translateContent();
         setTimeout(adjustLanguageSelector, 3000);
+        setTimeout(selectServerAmerica, 3000);  
         const copyButton = document.querySelector('.copy-btn');
         if (copyButton) {
             copyButton.addEventListener('click', () => {
@@ -167,7 +171,6 @@ const scriptContent = `
     });
     
     function adjustLanguageSelector() {
-      // Primeira implementação: usando o elemento de entrada
       const inpItems = document.querySelectorAll('.inpItem');
       inpItems.forEach(item => {
           const nameElement = item.querySelector('.name');
@@ -191,14 +194,12 @@ const scriptContent = `
           }
       });
   
-      // Segunda implementação: usando o menu dropdown
       const dropdowns = document.querySelectorAll('.el-dropdown');
       dropdowns.forEach(dropdown => {
           const languageName = dropdown.querySelector('.language-name');
           if (languageName) {
               languageName.textContent = 'Português BR';  // Atualizar o texto exibido
   
-              // Desativar o menu dropdown
               const dropdownLink = dropdown.querySelector('.el-dropdown-link');
               if (dropdownLink) {
                   dropdownLink.removeAttribute('aria-haspopup');
@@ -207,13 +208,11 @@ const scriptContent = `
                   dropdownLink.classList.remove('el-dropdown-link');
               }
   
-              // Esconder o ícone de seta para baixo
               const arrowIcon = dropdown.querySelector('.el-icon-arrow-down');
               if (arrowIcon) {
                   arrowIcon.style.display = 'none';
               }
   
-              // Esconder as opções do menu dropdown
               const dropdownMenu = dropdown.querySelector('.el-dropdown-menu');
               if (dropdownMenu) {
                   dropdownMenu.style.display = 'none';
@@ -221,7 +220,6 @@ const scriptContent = `
           }
       });
   
-      // Alterar o texto "English" para "Português BR" nos itens do menu dropdown
       const englishItems = document.querySelectorAll('.el-dropdown-menu__item');
       englishItems.forEach(item => {
           if (item.textContent.trim() === 'English') {
