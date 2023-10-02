@@ -110,18 +110,41 @@ const scriptContent = `
 
     .menuitem {
       text-align: center;
-      border: none; /* Remova a borda para uma aparência mais transparente */
+      border: none;
       padding: 10px;
       margin: 10px;
-      background-color: rgba(255, 255, 255, 0.2); /* Cor de fundo com transparência */
+      background-color: rgba(255, 255, 255, 0.2);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transform: perspective(1000px) rotateY(0deg); /* Efeito 3D de rotação */
-      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      transform: perspective(1000px) rotateY(0deg);
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
     .menuitem:hover {
-      transform: perspective(1000px) rotateY(10deg); /* Rotação 3D ao passar o mouse */
-      background-color: rgba(255, 255, 255, 0.4); /* Aumenta a transparência ao passar o mouse */
+      transform: perspective(1000px) rotateY(10deg);
+      background-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Adiciona sombra mais intensa ao passar o mouse */
+    }
+
+    .menuitem:active {
+      animation: glowing 1s ease-in-out; /* Inicia a animação de brilho ao clicar */
+    }
+
+    @keyframes glowing {
+      0% {
+        background: linear-gradient(90deg, rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255));
+        background-size: 300% 100%;
+        background-position: 100% 50%;
+      }
+      50% {
+        background: linear-gradient(90deg, rgb(0, 0, 255), rgb(255, 0, 0), rgb(0, 255, 0));
+        background-size: 300% 100%;
+        background-position: 100% 50%;
+      }
+      100% {
+        background: linear-gradient(90deg, rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 0, 0));
+        background-size: 300% 100%;
+        background-position: 100% 50%;
+      }
     }
   \`;
   document.head.appendChild(customStyle);
