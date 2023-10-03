@@ -203,23 +203,24 @@ const scriptContent = `
     width: 100%;
 }
 
-.result_table td {
-    padding: 10px;
+  .result_table td {
+    padding: 15px;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 14px;  /* Ajuste conforme necessário */
     color: #333;
-}
+  }
 
-.role_back {
+  .role_back {
     display: flex;
     gap: 10px;
-    padding: 10px 0;
+    padding: 15px 0;
     flex-wrap: wrap;
-}
+    align-items: flex-start;  /* Alinha itens ao topo */
+  }
 
-.role_back td {
+  .role_back td {
     width: 8rem;
-    height: 8rem;
+    min-height: 8rem;  /* Use min-height para garantir flexibilidade */
     text-align: center;
     vertical-align: top;
     border-radius: 10px;
@@ -228,7 +229,10 @@ const scriptContent = `
 }
 
 .role_back img {
-    border-radius: 10px;
+  width: 100%;  /* Faz a imagem ocupar todo o espaço disponível */
+  height: auto;  /* Mantém a proporção da imagem */
+  max-height: 100%;  /* Limita a altura para não exceder o contêiner */
+  border-radius: 10px;
 }
 
   
