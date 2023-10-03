@@ -206,8 +206,17 @@ const scriptContent = `
   .result_table td {
     padding: 15px;
     text-align: center;
-    font-size: 14px;  /* Ajuste conforme necessário */
+    font-size: 18px;
     color: #333;
+  }
+
+  .result_table td:nth-child(2), /* No. */
+  .result_table td:nth-child(4), /* Gender */
+  .result_table td:nth-child(5), /* Level, etc. */
+  .result_table td:nth-child(6),
+  .result_table td:nth-child(7) {
+      font-size: 16px; /* ou o tamanho que achar adequado */
+      font-weight: 500; /* opcional, para um pouco mais de destaque */
   }
 
   .role_back {
@@ -228,11 +237,11 @@ const scriptContent = `
     overflow: hidden;
 }
 
-.role_back img {
-  width: 100%;  /* Faz a imagem ocupar todo o espaço disponível */
-  height: auto;  /* Mantém a proporção da imagem */
-  max-height: 130%;  /* Limita a altura para não exceder o contêiner */
-  border-radius: 10px;
+  .role_back img {
+    width: 100%;  /* Faz a imagem ocupar todo o espaço disponível */
+    height: auto;  /* Mantém a proporção da imagem */
+    max-height: 130%;  /* Limita a altura para não exceder o contêiner */
+    border-radius: 10px;
 }
 
   
