@@ -206,7 +206,7 @@ const scriptContent = `
   .result_table td {
     padding: 15px;
     text-align: center;
-    font-size: 18px;
+    font-size: 30px;
     color: #333;
   }
 
