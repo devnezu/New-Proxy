@@ -231,7 +231,7 @@ const scriptContent = `
 .role_back img {
   width: 100%;  /* Faz a imagem ocupar todo o espaço disponível */
   height: auto;  /* Mantém a proporção da imagem */
-  max-height: 100%;  /* Limita a altura para não exceder o contêiner */
+  max-height: 130%;  /* Limita a altura para não exceder o contêiner */
   border-radius: 10px;
 }
 
