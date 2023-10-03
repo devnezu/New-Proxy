@@ -172,6 +172,34 @@ const scriptContent = `
         border-color: var(--checkbox-color);
     }
   
+    .role_back {
+      background-color: #ffffff; /* Fundo branco */
+      border-radius: 10px; /* Borda arredondada */
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), /* Sombra externa */
+                  inset 0px -4px 6px rgba(0, 0, 0, 0.05); /* Sombra interna para efeito 3D */
+      padding: 20px; /* Espaço interno */
+      margin: 20px; /* Espaço externo */
+      transition: all 0.3s ease-in-out; /* Transição suave para todos os estilos */
+    }
+    
+    .role_back:hover {
+        box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.1), /* Sombra externa ampliada no hover */
+                    inset 0px -4px 6px rgba(0, 0, 0, 0.05); /* Sombra interna constante */
+    }
+    
+    .role_back td {
+        padding: 10px; /* Espaço interno para cada célula de tabela */
+    }
+    
+    .role_back img {
+        border-radius: 50%; /* Imagens redondas */
+        transition: transform 0.3s ease-in-out; /* Transição suave para transformações */
+    }
+    
+    .role_back img:hover {
+        transform: scale(1.1); /* Aumenta um pouco o tamanho da imagem no hover */
+    }
+  
   \`;
   document.head.appendChild(customStyle);
   
