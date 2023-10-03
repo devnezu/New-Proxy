@@ -1,6 +1,6 @@
 # New-Proxy Readme do Projeto - Genshin Impact Character Info
 
-Este é um projeto que visa melhorar a experiência de pesquisa e tradução de informações sobre personagens e contas do jogo Genshin Impact no site [godacc.com](https://godacc.com). Ele adiciona recursos de tradução, estilização e facilita a cópia de informações relevantes para os jogadores brasileiros.
+Este é um projeto que visa melhorar a experiência de pesquisa e tradução de informações sobre personagens e contas do jogo Genshin Impact no site [catalogo-alphaforcebr.cloud](https://www.catalogo-alphaforcebr.cloud/#/). Ele adiciona recursos de tradução, estilização e facilita a cópia de informações relevantes para os jogadores brasileiros.
 
 ## Funcionalidades
 
