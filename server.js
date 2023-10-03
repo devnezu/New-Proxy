@@ -2,36 +2,36 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 50%, rgba(0,212,255,1) 100%);
-  background-size: 200% 200%;
-  animation: gradientAnimation 10s ease infinite;
-  color: #333333;
+  background: linear-gradient(135deg, rgba(255,220,220,1) 25%, rgba(220,220,255,1) 25%, rgba(220,220,255,1) 50%, rgba(255,220,220,1) 50%, rgba(255,220,220,1) 75%, rgba(220,220,255,1) 75%, rgba(220,220,255,1) 100%);
+  background-size: 177% 177%;
+  animation: gradientAnimation 6s linear infinite;
+  color: #555555;
   font-family: 'Mooli', Arial, sans-serif;
 }
 
 header {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 10px;
-  border-bottom: 2px solid #333333;
+  border-bottom: 2px solid #dddddd;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 header:hover {
-  background-color: rgba(255,165,0,0.8);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: rgba(240,240,240,0.9);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 a {
-  color: #333333;
+  color: #555555;
   text-decoration: none;
   padding-bottom: 2px;
   transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
 }
 
 a:hover {
-  color: #ff6600;
-  border-bottom: 2px solid #ff6600;
+  color: #9977aa;
+  border-bottom: 2px solid #9977aa;
 }
 
 img {
@@ -45,10 +45,11 @@ img:hover {
 }
 
 @keyframes gradientAnimation {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+  0% {background-position: 0% 0%;}
+  50% {background-position: 100% 100%;}
+  100% {background-position: 0% 0%;}
 }
+
 `;
 
 function modifyContent() {
@@ -330,7 +331,7 @@ const scriptContent = `
         }
     });
   }
-
+  
   document.querySelectorAll('.menuitem').forEach((element) => {
     element.classList.remove('animate__bounceInRight', 'animate__bounceInLeft');
     element.classList.add('animate__zoomIn'); // Ou qualquer outra animação que desejar.
