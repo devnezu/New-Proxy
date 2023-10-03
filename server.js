@@ -2,8 +2,9 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 50%, rgba(0,212,255,1) 100%);
   background-size: 200% 200%;
+  animation: gradientAnimation 10s ease infinite;
   color: #333333;
   font-family: 'Mooli', Arial, sans-serif;
 }
@@ -12,30 +13,35 @@ header {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-bottom: 2px solid #333333;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 header:hover {
   background-color: rgba(255,165,0,0.8);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 a {
   color: #333333;
   text-decoration: none;
   padding-bottom: 2px;
-  transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
 }
 
 a:hover {
   color: #ff6600;
+  border-bottom: 2px solid #ff6600;
 }
 
 img {
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 img:hover {
   transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes gradientAnimation {
@@ -324,7 +330,7 @@ const scriptContent = `
         }
     });
   }
-  
+
   document.querySelectorAll('.menuitem').forEach((element) => {
     element.classList.remove('animate__bounceInRight', 'animate__bounceInLeft');
     element.classList.add('animate__zoomIn'); // Ou qualquer outra animação que desejar.
