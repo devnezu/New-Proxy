@@ -2,54 +2,47 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(135deg, rgba(255,220,220,1) 25%, rgba(220,220,255,1) 25%, rgba(220,220,255,1) 50%, rgba(255,220,220,1) 50%, rgba(255,220,220,1) 75%, rgba(220,220,255,1) 75%, rgba(220,220,255,1) 100%);
-  background-size: 177% 177%;
-  animation: gradientAnimation 6s linear infinite;
-  color: #555555;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,212,255,1) 100%);
+  background-size: 200% 200%;
+  color: #333333;
   font-family: 'Mooli', Arial, sans-serif;
 }
 
 header {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
-  border-bottom: 2px solid #dddddd;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #333333;
+  transition: background-color 0.3s ease-in-out;
 }
 
 header:hover {
-  background-color: rgba(240,240,240,0.9);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255,165,0,0.8);
 }
 
 a {
-  color: #555555;
+  color: #333333;
   text-decoration: none;
   padding-bottom: 2px;
-  transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
 }
 
 a:hover {
-  color: #9977aa;
-  border-bottom: 2px solid #9977aa;
+  color: #ff6600;
 }
 
 img {
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }
 
 img:hover {
   transform: scale(1.05);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes gradientAnimation {
-  0% {background-position: 0% 0%;}
-  50% {background-position: 100% 100%;}
-  100% {background-position: 0% 0%;}
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
-
 `;
 
 function modifyContent() {
