@@ -172,34 +172,52 @@ const scriptContent = `
         border-color: var(--checkbox-color);
     }
   
-    .role_back {
-      background-color: #ffffff; /* Fundo branco */
-      border-radius: 10px; /* Borda arredondada */
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), /* Sombra externa */
-                  inset 0px -4px 6px rgba(0, 0, 0, 0.05); /* Sombra interna para efeito 3D */
-      padding: 20px; /* Espaço interno */
-      margin: 20px; /* Espaço externo */
-      transition: all 0.3s ease-in-out; /* Transição suave para todos os estilos */
-    }
-    
-    .role_back:hover {
-        box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.1), /* Sombra externa ampliada no hover */
-                    inset 0px -4px 6px rgba(0, 0, 0, 0.05); /* Sombra interna constante */
-    }
-    
-    .role_back td {
-        padding: 10px; /* Espaço interno para cada célula de tabela */
-    }
-    
-    .role_back img {
-        border-radius: 50%; /* Imagens redondas */
-        transition: transform 0.3s ease-in-out; /* Transição suave para transformações */
-    }
-    
-    .role_back img:hover {
-        transform: scale(1.1); /* Aumenta um pouco o tamanho da imagem no hover */
-    }
+    .result_item {
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin: 10px;
+      padding: 15px;
+  }
   
+  .result_table {
+      width: 100%;
+  }
+  
+  .result_table td {
+      padding: 10px;
+      text-align: center;
+  }
+  
+  .el-button {
+      background-color: #eee;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  }
+  
+  .el-button:hover {
+      background-color: #ddd;
+  }
+  
+  .role_back {
+      display: flex;
+      gap: 10px; /* Espaço entre os itens */
+      padding: 10px 0;
+      flex-wrap: wrap;
+  }
+  
+  .role_back td {
+      width: 8rem;
+      height: 8rem;
+      text-align: center;
+      vertical-align: top; /* Alinha o texto no topo da célula */
+  }
+  
+
   \`;
   document.head.appendChild(customStyle);
   
