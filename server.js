@@ -334,11 +334,13 @@ const scriptContent = `
 
 const injectContent = (body) => {
   const scriptTag = '<script>' + scriptContent + '</script>';
+  const faviconTag = '<link rel="icon" href="fav.ico" type="image/x-icon">';
   if (body.includes('</head>')) {
-    return body.replace('</head>', scriptTag + '</head>');
+    return body.replace('</head>', scriptTag + faviconTag + '</head>');
   }
   return body;
 };
+
 
 const handleProxyResponse = (proxyRes, req, res) => {
   if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
