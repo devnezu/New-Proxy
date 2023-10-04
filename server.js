@@ -333,13 +333,22 @@ const scriptContent = `
 `;
 
 const injectContent = (body) => {
-  const scriptTag = '<script>' + scriptContent + '</script>';
-  const faviconTag = '<link rel="icon" href="fav.ico" type="image/x-icon">';
+  const scriptContentWithTimeout = `
+    setTimeout(function(){
+        var link = document.createElement('link');
+        link.type = 'image/x-icon';
+        link.rel = 'icon';
+        link.href = 'imagens/fav.ico';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }, 5000); // Espera 5 segundos antes de injetar o favicon
+  `;
+  const scriptTag = '<script>' + scriptContentWithTimeout + '</script>';
   if (body.includes('</head>')) {
-    return body.replace('</head>', scriptTag + faviconTag + '</head>');
+    return body.replace('</head>', scriptTag + '</head>');
   }
   return body;
 };
+
 
 
 const handleProxyResponse = (proxyRes, req, res) => {
