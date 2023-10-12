@@ -2,32 +2,32 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(90deg, rgba(10,24,61,1) 0%, rgba(255,255,255,1) 10%, rgba(0,70,255,1) 100%);
-  animation: gradientAnimation 5s ease infinite;
-  color: #ffffff;
-  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,212,255,1) 100%);
+  background-size: 200% 200%;
+  color: #333333;
+  font-family: 'Mooli', Arial, sans-serif;
 }
 
 header {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
-  border-bottom: 3px solid #007BFF;
+  border-bottom: 2px solid #333333;
   transition: background-color 0.3s ease-in-out;
 }
 
 header:hover {
-  background-color: rgba(0,123,255,0.9);
+  background-color: rgba(255,165,0,0.8);
 }
 
 a {
-  color: #ffffff;
-  text-decoration: underline;
+  color: #333333;
+  text-decoration: none;
   padding-bottom: 2px;
   transition: color 0.3s ease-in-out;
 }
 
 a:hover {
-  color: #007BFF;
+  color: #ff6600;
 }
 
 img {
@@ -35,7 +35,7 @@ img {
 }
 
 img:hover {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 @keyframes gradientAnimation {
@@ -75,24 +75,23 @@ const scriptContent = `
   document.head.appendChild(style);
 
   const link = document.createElement('link');
-  link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap';
+  link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
   link.rel = 'stylesheet';
   document.head.appendChild(link);
 
   const customStyle = document.createElement('style');
   customStyle.innerHTML = \`
     :root {
-      --primary-bg-color: rgba(10,24,61,0.8);
-      --hover-bg-color: rgba(0,123,255,0.9);
-      --active-shadow-color: rgba(0, 0, 0, 0.5);
+      --primary-bg-color: rgba(255, 255, 255, 0.2);
+      --hover-bg-color: rgba(255, 255, 255, 0.4);
+      --active-shadow-color: rgba(0, 0, 0, 0.4);
       --transition-duration: 0.3s;
-      --border-radius: 8px;
-      --input-border-color: #888888;
-      --input-focus-border-color: #007BFF;
-      --input-shadow-color: rgba(0, 0, 0, 0.05);
+      --border-radius: 12px;
+      --input-border-color: #ccc;
+      --input-focus-border-color: #66afe9;
+      --input-shadow-color: rgba(0, 0, 0, 0.1);
       --checkbox-color: #007BFF;
     }
-  
   
     .menuitem img {
       max-width: 100%;
