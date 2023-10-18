@@ -2,61 +2,62 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(90deg, #020024, #ffffff, #00d4ff);
-  font-family: 'Arial', sans-serif;
+  background: linear-gradient(90deg, #000000, #333333, #020024);
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
   color: #ffffff;
-  }
-  
-  .header {
+}
+
+.header {
   background-color: #020024;
   padding: 20px;
   border-bottom: 3px solid #00d4ff;
-  }
-  
-  .logo {
+}
+
+.logo {
   max-width: 200px;
   margin: 0 auto;
-  }
-  
-  .main-content {
+}
+
+.main-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 20px;
-  }
-  
-  .card {
+}
+
+.card {
   background-color: #333333;
   border-radius: 10px;
   overflow: hidden;
   margin: 20px;
   transition: transform 0.3s ease-in-out;
-  }
-  
-  .card:hover {
+}
+
+.card:hover {
   transform: scale(1.05);
-  }
-  
-  .card img {
+}
+
+.card img {
   max-width: 100%;
   transition: opacity 0.3s ease-in-out;
-  }
-  
-  .card img:hover {
+}
+
+.card img:hover {
   opacity: 0.7;
-  }
-  
-  .card-content {
+}
+
+.card-content {
   padding: 15px;
-  }
-  
-  .card-title {
+}
+
+.card-title {
   font-size: 1.5em;
   margin-bottom: 10px;
   color: #ffffff;
-  }
-  
-  .button {
+}
+
+.button {
   display: inline-block;
   padding: 10px 20px;
   border-radius: 5px;
@@ -65,24 +66,25 @@ body {
   text-align: center;
   margin-top: 15px;
   transition: background-color 0.3s ease-in-out;
-  }
-  
-  .button:hover {
+}
+
+.button:hover {
   background-color: #0292b2;
-  }
-  
-  .footer {
+}
+
+.footer {
   background-color: #020024;
   padding: 20px;
   text-align: center;
   color: #ffffff;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
   .main-content {
-  flex-direction: column;
+    flex-direction: column;
   }
-  }
+}
+
 `;
 
 function modifyContent() {
@@ -115,7 +117,7 @@ const scriptContent = `
   document.head.appendChild(style);
 
   const link = document.createElement('link');
-  link.href = 'https://fonts.googleapis.com/css2?family=Mooli&display=swap';
+  link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap';
   link.rel = 'stylesheet';
   document.head.appendChild(link);
 
