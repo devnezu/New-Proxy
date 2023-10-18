@@ -1,4 +1,5 @@
 const { modifyContent, copyToClipboard, translateCharacters } = require('./helpers');
+const styleContent = require('./style');
 
 const scriptContent = `
   const style = document.createElement('style');
