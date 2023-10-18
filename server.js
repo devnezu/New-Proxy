@@ -2,47 +2,87 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,212,255,1) 100%);
-  background-size: 200% 200%;
-  color: #333333;
-  font-family: 'Mooli', Arial, sans-serif;
-}
-
-header {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-bottom: 2px solid #333333;
-  transition: background-color 0.3s ease-in-out;
-}
-
-header:hover {
-  background-color: rgba(255,165,0,0.8);
-}
-
-a {
-  color: #333333;
-  text-decoration: none;
-  padding-bottom: 2px;
-  transition: color 0.3s ease-in-out;
-}
-
-a:hover {
-  color: #ff6600;
-}
-
-img {
+  background: linear-gradient(90deg, #020024, #ffffff, #00d4ff);
+  font-family: 'Arial', sans-serif;
+  color: #ffffff;
+  }
+  
+  .header {
+  background-color: #020024;
+  padding: 20px;
+  border-bottom: 3px solid #00d4ff;
+  }
+  
+  .logo {
+  max-width: 200px;
+  margin: 0 auto;
+  }
+  
+  .main-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  }
+  
+  .card {
+  background-color: #333333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px;
   transition: transform 0.3s ease-in-out;
-}
-
-img:hover {
+  }
+  
+  .card:hover {
   transform: scale(1.05);
-}
-
-@keyframes gradientAnimation {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
+  }
+  
+  .card img {
+  max-width: 100%;
+  transition: opacity 0.3s ease-in-out;
+  }
+  
+  .card img:hover {
+  opacity: 0.7;
+  }
+  
+  .card-content {
+  padding: 15px;
+  }
+  
+  .card-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #ffffff;
+  }
+  
+  .button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #00d4ff;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 15px;
+  transition: background-color 0.3s ease-in-out;
+  }
+  
+  .button:hover {
+  background-color: #0292b2;
+  }
+  
+  .footer {
+  background-color: #020024;
+  padding: 20px;
+  text-align: center;
+  color: #ffffff;
+  }
+  
+  @media (max-width: 768px) {
+  .main-content {
+  flex-direction: column;
+  }
+  }
 `;
 
 function modifyContent() {
