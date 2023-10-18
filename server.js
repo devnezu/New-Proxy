@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styleContent = `
 body {
-  background: linear-gradient(90deg, #000000, #333333, #020024);
+  background: linear-gradient(90deg, #000000, #333333, #696969);
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   color: #ffffff;
@@ -10,15 +10,11 @@ body {
 }
 
 .header {
-  background-color: #020024;
+  background-color: #696969;
   padding: 20px;
   border-bottom: 3px solid #00d4ff;
 }
 
-.logo {
-  max-width: 200px;
-  margin: 0 auto;
-}
 
 .main-content {
   display: flex;
@@ -73,14 +69,12 @@ body {
   background-color: #0292b2;
 }
 
-.footer {
-  background-color: #020024;
-  padding: 20px;
+.result_table {
+  width: 100%;
+  border-collapse: collapse;
   text-align: center;
-  color: #ffffff;
+  margin-top: 20px;
 }
-
-
 `;
 
 function modifyContent() {
