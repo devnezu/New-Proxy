@@ -6,6 +6,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   color: #ffffff;
+  font-size: 16px; /* Tamanho da fonte aumentado para 16px */
 }
 
 .header {
@@ -52,7 +53,7 @@ body {
 }
 
 .card-title {
-  font-size: 1.5em;
+  font-size: 1.8em; /* Tamanho da fonte aumentado para 1.8em */
   margin-bottom: 10px;
   color: #ffffff;
 }
@@ -79,11 +80,6 @@ body {
   color: #ffffff;
 }
 
-@media (max-width: 768px) {
-  .main-content {
-    flex-direction: column;
-  }
-}
 
 `;
 
