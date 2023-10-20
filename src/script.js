@@ -92,6 +92,11 @@ const scriptContent = `
     .el-tabs__item.is-top {
       color: #ffffff;
   }
+  
+    .el-tabs__item.is-top.is-active {
+        color: #007BFF;
+    }
+    
 
     .el-input__inner:focus {
         border-color: var(--input-focus-border-color);
