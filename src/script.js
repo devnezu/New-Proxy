@@ -24,6 +24,24 @@ const scriptContent = `
       --input-shadow-color: rgba(0, 0, 0, 0.1);
       --checkbox-color: #007BFF;
     }
+
+    input[type="text"].el-input__inner, 
+  input[type="number"].el-input__inner {
+      border: 1px solid var(--input-border-color);
+      border-radius: var(--border-radius);
+      padding: 10px;
+      background-color: #ffffff !important;
+      box-shadow: inset 0 1px 2px var(--input-shadow-color);
+      transition: border-color var(--transition-duration) ease-in-out, box-shadow var(--transition-duration) ease-in-out;
+      color: #ffffff;  /* Cor do texto padrão para input de texto e número */
+  }
+
+  input[type="text"].el-input__inner:focus, 
+  input[type="number"].el-input__inner:focus {
+      border-color: var(--input-focus-border-color);
+      box-shadow: inset 0 1px 2px var(--input-shadow-color), 0 0 5px var(--input-focus-border-color);
+      color: #007BFF;  /* Cor do texto quando focado para input de texto e número */
+}
   
   
     .menuitem img {
