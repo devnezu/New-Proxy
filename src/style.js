@@ -1,18 +1,19 @@
 const styleContent = `
 body {
-  background: linear-gradient(90deg, #858585, #9e9e9e, #dbdbdb);
+  background: linear-gradient(90deg, #333, #444, #555);
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
-  color: #ffffff;
+  color: #e0e0e0;
   font-size: 18px; 
   line-height: 1.5; 
 }
 
 .header {
-  background-color: #696969;
+  background-color: #222;
   padding: 30px 20px; 
-  border-bottom: 4px solid #00d4ff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 4px solid #ff7700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 .main-content {
   display: flex;
@@ -22,17 +23,17 @@ body {
 }
 
 .card {
-  background-color: #333333;
+  background-color: #1c1c1c;
   border-radius: 15px; 
   overflow: hidden;
   margin: 20px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
 }
 
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+  transform: scale(1.08);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); 
 }
 
 .card img {
@@ -41,7 +42,7 @@ body {
 }
 
 .card img:hover {
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .card-content {
@@ -51,14 +52,14 @@ body {
 .card-title {
   font-size: 2em; 
   margin-bottom: 15px; 
-  color: #ffffff;
+  color: #e0e0e0;
 }
 
 .button {
   display: inline-block;
   padding: 12px 24px; 
   border-radius: 8px;
-  background-color: #00d4ff;
+  background-color: #ff7700;
   color: #ffffff;
   text-align: center;
   margin-top: 20px; 
@@ -66,8 +67,8 @@ body {
 }
 
 .button:hover {
-  background-color: #0292b2;
-  transform: translateY(-2px); 
+  background-color: #ff5500;
+  transform: translateY(-3px); 
 }
 
 .result_table {
@@ -75,6 +76,8 @@ body {
   border-collapse: collapse;
   text-align: center;
   margin-top: 30px; 
+}
+
 `;
 
 module.exports = styleContent;
