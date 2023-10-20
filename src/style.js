@@ -13,15 +13,12 @@ body {
   padding: 30px 20px; 
   border-bottom: 4px solid #00d4ff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #ffffff; 
-}
 
 .main-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 30px 20px; 
-  color: #ffffff; 
 }
 
 .card {
@@ -31,7 +28,6 @@ body {
   margin: 20px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  color: #ffffff; 
 }
 
 .card:hover {
@@ -50,7 +46,6 @@ body {
 
 .card-content {
   padding: 20px; 
-  color: #ffffff; 
 }
 
 .card-title {
@@ -80,9 +75,7 @@ body {
   border-collapse: collapse;
   text-align: center;
   margin-top: 30px; 
-  color: #ffffff; 
 }
-
 `;
 
 module.exports = styleContent;
