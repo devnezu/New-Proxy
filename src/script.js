@@ -103,16 +103,31 @@ const scriptContent = `
         box-shadow: inset 0 1px 2px var(--input-shadow-color), 0 0 5px var(--input-focus-border-color);
     }
 
-    /* Estilização para Checkbox */
-    .el-checkbox__inner {
-        border-radius: var(--border-radius);
-        transition: background-color var(--transition-duration) ease-in-out, border-color var(--transition-duration) ease-in-out;
-    }
-
-    .el-checkbox.is-checked .el-checkbox__inner {
-        background-color: var(--checkbox-color);
-        border-color: var(--checkbox-color);
-    }
+      /* Para todos os labels das checkboxes */
+      .el-checkbox__label {
+          color: #ffffff;
+      }
+      
+      /* Para o label da checkbox quando está ativa/checked */
+      .el-checkbox.is-checked .el-checkbox__label {
+          color: #007BFF;
+      }
+      
+      /* Para o texto dentro dos campos de entrada */
+      .el-input__inner {
+          color: #ffffff;
+      }
+      
+      /* Se você quiser mudar a cor do texto dentro dos campos de entrada quando eles estão focados */
+      .el-input__inner:focus {
+          color: #007BFF;
+      }
+      
+      /* Para o texto "Número de Personagens do Mochileiro" */
+      .inpItem .name {
+          color: #ffffff;
+      }
+      
   
   \`;
   document.head.appendChild(customStyle);
