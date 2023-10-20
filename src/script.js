@@ -19,7 +19,7 @@ const scriptContent = `
       --active-shadow-color: rgba(0, 0, 0, 0.2);
       --transition-duration: 0.3s;
       --border-radius: 12px;
-      --input-border-color: #ccc;
+      --input-border-color: #696969;
       --input-focus-border-color: #66afe9;
       --input-shadow-color: rgba(0, 0, 0, 0.1);
       --checkbox-color: #007BFF;
@@ -129,7 +129,7 @@ const scriptContent = `
     'Enter more conditions to query data': 'Selecione mais algumas opções para exibir as contas disponíveis',
     'Search': 'Buscar',
     'Reset': 'Redefinir',
-    'The life': 'C1',
+    'the life': 'C1',
     'Second life': 'C2',
     'Three lives': 'C3',
     'Four lives': 'C4',
@@ -148,9 +148,6 @@ const scriptContent = `
         });
     }, 2000);  
   };
-
-
-
 
   document.addEventListener('DOMContentLoaded', translateContent);
 
