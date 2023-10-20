@@ -13,6 +13,11 @@ const scriptContent = `
 
   const customStyle = document.createElement('style');
   customStyle.innerHTML = \`
+
+      body, *, ::before, ::after {
+        color: white !important;
+    }
+    
     :root {
       --primary-bg-color: rgba(255, 255, 255, 0.2);
       --hover-bg-color: rgba(255, 255, 255, 0.4);
