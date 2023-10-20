@@ -54,3 +54,4 @@ module.exports = (req, res) => {
   if (req.url.startsWith('/genshin/static')) return proxyStatic(req, res);
   return proxyMain(req, res);
 };
+

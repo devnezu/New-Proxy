@@ -15,8 +15,8 @@ const scriptContent = `
   customStyle.innerHTML = \`
     :root {
       --primary-bg-color: rgba(255, 255, 255, 0.2);
-      --hover-bg-color: rgba(255, 255, 255, 0.4);
-      --active-shadow-color: rgba(0, 0, 0, 0.4);
+      --hover-bg-color: rgba(255, 255, 255, 0.2);
+      --active-shadow-color: rgba(0, 0, 0, 0.2);
       --transition-duration: 0.3s;
       --border-radius: 12px;
       --input-border-color: #ccc;
@@ -111,7 +111,7 @@ const scriptContent = `
   const translationMap = {
     'Server': 'Servidor da Conta',
     'Number of limited characters': 'Número de Personagens Limitados',
-    'Number of standard characters': 'Número de Personagens do Mochileiro',
+    'Number of standart characters': 'Número de Personagens do Mochileiro',
     'Number of five-star weapons': 'Número de Armas Limitadas',
     'Gender': 'Gênero do Viajante',
     'male': 'Masculino',
@@ -129,6 +129,12 @@ const scriptContent = `
     'Enter more conditions to query data': 'Selecione mais algumas opções para exibir as contas disponíveis',
     'Search': 'Buscar',
     'Reset': 'Redefinir',
+    'The life': 'C1',
+    'Second life': 'C2',
+    'Three lives': 'C3',
+    'Four lives': 'C4',
+    'Five lives': 'C5',
+    'Six lives': 'C6',
   };
 
   const translateContent = () => {
@@ -142,6 +148,9 @@ const scriptContent = `
         });
     }, 2000);  
   };
+
+
+
 
   document.addEventListener('DOMContentLoaded', translateContent);
 
@@ -186,18 +195,28 @@ const scriptContent = `
       event.clipboardData.setData('text/plain', translatedText);
     });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    translateContent();
-    setTimeout(adjustLanguageSelector, 3000);
-    setTimeout(selectServerAmerica, 3000);  
-    const copyButton = document.querySelector('.copy-btn');
-    if (copyButton) {
-        copyButton.addEventListener('click', () => {
-            const modifiedContent = modifyContent();
-            copyToClipboard(modifiedContent);
-        });
-    }
-  });
+    document.addEventListener('DOMContentLoaded', () => {
+      translateContent();
+      setTimeout(adjustLanguageSelector, 3000);
+      setTimeout(selectServerAmerica, 3000);  
+      const copyButton = document.querySelector('.copy-btn');
+      if (copyButton) {
+          copyButton.addEventListener('click', () => {
+              const modifiedContent = modifyContent();
+              copyToClipboard(modifiedContent);
+    
+              const resetButton = document.querySelector('.btnback .el-button--info');
+              if (resetButton) {
+                resetButton.addEventListener('click', () => {
+                  // Adiciona um delay pequeno para garantir que qualquer lógica associada ao botão "Redefinir" já foi concluída.
+                  setTimeout(() => {
+                    translateContent();
+                  }, 100);
+          });
+      }
+    })
+      }
+    })
 
   function adjustLanguageSelector() {
     const inpItems = document.querySelectorAll('.inpItem');
