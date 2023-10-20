@@ -22,7 +22,7 @@ body {
 }
 
 .card {
-  background-color: #333333;
+  background-color: #ffffff;
   border-radius: 15px; 
   overflow: hidden;
   margin: 20px;

@@ -89,6 +89,10 @@ const scriptContent = `
         transition: border-color var(--transition-duration) ease-in-out, box-shadow var(--transition-duration) ease-in-out;
     }
 
+    .el-tabs__item.is-top {
+      color: #ffffff;
+  }
+
     .el-input__inner:focus {
         border-color: var(--input-focus-border-color);
         box-shadow: inset 0 1px 2px var(--input-shadow-color), 0 0 5px var(--input-focus-border-color);
