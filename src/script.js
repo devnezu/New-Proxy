@@ -19,7 +19,7 @@ const scriptContent = `
       --active-shadow-color: rgba(0, 0, 0, 0.2);
       --transition-duration: 0.3s;
       --border-radius: 12px;
-      --input-border-color: #696969;
+      --input-border-color: #fff;
       --input-focus-border-color: #66afe9;
       --input-shadow-color: rgba(0, 0, 0, 0.1);
       --checkbox-color: #007BFF;

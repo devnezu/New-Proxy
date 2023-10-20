@@ -1,6 +1,6 @@
 const styleContent = `
 body {
-  background: linear-gradient(90deg, #000000, #333333, #696969);
+  background: linear-gradient(90deg, #858585, #9e9e9e, #dbdbdb);
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   color: #ffffff;
