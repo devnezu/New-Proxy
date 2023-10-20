@@ -15,8 +15,8 @@ const scriptContent = `
   customStyle.innerHTML = \`
     :root {
       --primary-bg-color: rgba(255, 255, 255, 0.2);
-      --hover-bg-color: rgba(255, 255, 255, 0.2);
-      --active-shadow-color: rgba(0, 0, 0, 0.2);
+      --hover-bg-color: rgba(255, 255, 255, 0.4);
+      --active-shadow-color: rgba(0, 0, 0, 0.4);
       --transition-duration: 0.3s;
       --border-radius: 12px;
       --input-border-color: #ccc;
