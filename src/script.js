@@ -14,42 +14,17 @@ const scriptContent = `
   const customStyle = document.createElement('style');
   customStyle.innerHTML = \`
     :root {
-      --primary-color: #3498db;
-      --secondary-color: #2c3e50;
-      --background-color: #f4f4f4;
-      --text-color: #333;
-      --font-family: 'Poppins', sans-serif;
-      --font-weight: 600;
-      --button-bg-color: #3498db;
-      --button-text-color: #fff;
-      --button-hover-bg-color: #2980b9;
-      --button-hover-text-color: #fff;
-      --input-bg-color: #ffffff;
-      --input-border-color: #e0e0e0;
+      --primary-bg-color: rgba(255, 255, 255, 0.2);
+      --hover-bg-color: rgba(255, 255, 255, 0.2);
+      --active-shadow-color: rgba(0, 0, 0, 0.2);
+      --transition-duration: 0.3s;
+      --border-radius: 12px;
+      --input-border-color: #ccc;
       --input-focus-border-color: #66afe9;
-      --input-text-color: #333;
-      --input-placeholder-color: #a0a0a0;
+      --input-shadow-color: rgba(0, 0, 0, 0.1);
+      --checkbox-color: #007BFF;
     }
-    
-    /* Aplicações das variáveis do Root */
-    body {
-      background-color: var(--background-color);
-      font-family: var(--font-family);
-      color: var(--text-color);
-      font-weight: var(--font-weight);
-    }
-
-    .button {
-      background-color: var(--button-bg-color);
-      color: var(--button-text-color);
-      transition: background-color 0.3s ease-in-out;
-    }
-    
-    .button:hover {
-      background-color: var(--button-hover-bg-color);
-      color: var(--button-hover-text-color);
-    }
-    
+  
     .menuitem img {
       max-width: 100%;
       height: auto;
