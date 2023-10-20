@@ -13,11 +13,10 @@ const scriptContent = `
 
   const customStyle = document.createElement('style');
   customStyle.innerHTML = \`
-
     :root {
-      --primary-bg-color: #333333;
-      --hover-bg-color: rgba(255, 255, 255, 0.1);
-      --active-shadow-color: rgba(0, 0, 0, 0.1);
+      --primary-bg-color: rgba(255, 255, 255, 0.2);
+      --hover-bg-color: rgba(255, 255, 255, 0.4);
+      --active-shadow-color: rgba(0, 0, 0, 0.4);
       --transition-duration: 0.3s;
       --border-radius: 12px;
       --input-border-color: #ccc;
@@ -25,6 +24,7 @@ const scriptContent = `
       --input-shadow-color: rgba(0, 0, 0, 0.1);
       --checkbox-color: #007BFF;
     }
+  
   
     .menuitem img {
       max-width: 100%;
