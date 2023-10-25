@@ -70,12 +70,6 @@ body {
   transform: translateY(-2px); 
 }
 
-.result_table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-  margin-top: 30px; 
-}
 `;
 
 module.exports = styleContent;

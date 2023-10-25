@@ -14,18 +14,27 @@ const scriptContent = `
   const customStyle = document.createElement('style');
   customStyle.innerHTML = \`
     :root {
-      --primary-bg-color: rgba(255, 255, 255, 0.2);
-      --hover-bg-color: rgba(255, 255, 255, 0.4);
-      --active-shadow-color: rgba(0, 0, 0, 0.4);
       --transition-duration: 0.3s;
       --border-radius: 12px;
       --input-border-color: #ccc;
       --input-focus-border-color: #66afe9;
       --input-shadow-color: rgba(0, 0, 0, 0.1);
       --checkbox-color: #007BFF;
+      --font-color: #333;
     }
 
-    input[type="text"].el-input__inner, 
+    .result_table {
+      background-color: white !important; 
+      border-radius: var(--border-radius) var(--border-radius) 0 0;  /* Somente bordas superiores arredondadas */
+      border-bottom: 2px solid rgba(136, 136, 136, 0.5); /* Divisória estética */
+    }
+
+    .role_back {
+      background-color: white !important; 
+      border-radius: 0 0 var(--border-radius) var(--border-radius);  /* Somente bordas inferiores arredondadas */
+    }
+
+  input[type="text"].el-input__inner, 
   input[type="number"].el-input__inner {
       border: 1px solid var(--input-border-color);
       border-radius: var(--border-radius);
@@ -33,16 +42,8 @@ const scriptContent = `
       background-color: #ffffff !important;
       box-shadow: inset 0 1px 2px var(--input-shadow-color);
       transition: border-color var(--transition-duration) ease-in-out, box-shadow var(--transition-duration) ease-in-out;
-      color: #ffffff;  /* Cor do texto padrão para input de texto e número */
+      color: gray;  
   }
-
-  input[type="text"].el-input__inner:focus, 
-  input[type="number"].el-input__inner:focus {
-      border-color: var(--input-focus-border-color);
-      box-shadow: inset 0 1px 2px var(--input-shadow-color), 0 0 5px var(--input-focus-border-color);
-      color: #007BFF;  /* Cor do texto quando focado para input de texto e número */
-}
-  
   
     .menuitem img {
       max-width: 100%;
@@ -97,15 +98,22 @@ const scriptContent = `
         background-color: var(--hover-bg-color);
     }
 
-    /* Estilização para Input Fields */
     .el-input__inner {
-        border: 1px solid var(--input-border-color);
-        border-radius: var(--border-radius);
-        padding: 10px;
-        background-color: #ffffff !important;
-        box-shadow: inset 0 1px 2px var(--input-shadow-color);
-        transition: border-color var(--transition-duration) ease-in-out, box-shadow var(--transition-duration) ease-in-out;
-    }
+      border: 1px solid var(--input-border-color);
+      border-radius: var(--border-radius);
+      padding: 10px;
+      background-color: #ffffff !important;
+      box-shadow: inset 0 1px 2px var(--input-shadow-color);
+      transition: border-color var(--transition-duration) ease-in-out, box-shadow var(--transition-duration) ease-in-out;
+      color: var(--font-color);
+  }
+
+  .el-input__inner:focus {
+      border-color: var(--input-focus-border-color);
+      box-shadow: inset 0 1px 2px var(--input-shadow-color), 0 0 5px var(--input-focus-border-color);
+      color: #007BFF;
+  }
+
 
     .el-tabs__item.is-top {
       color: #ffffff;
@@ -116,37 +124,18 @@ const scriptContent = `
     }
     
 
-    .el-input__inner:focus {
-        border-color: var(--input-focus-border-color);
-        box-shadow: inset 0 1px 2px var(--input-shadow-color), 0 0 5px var(--input-focus-border-color);
-    }
-
-      /* Para todos os labels das checkboxes */
       .el-checkbox__label {
           color: #ffffff;
       }
       
-      /* Para o label da checkbox quando está ativa/checked */
       .el-checkbox.is-checked .el-checkbox__label {
           color: #007BFF;
       }
       
-      /* Para o texto dentro dos campos de entrada */
-      .el-input__inner {
-          color: #ffffff;
-      }
-      
-      /* Se você quiser mudar a cor do texto dentro dos campos de entrada quando eles estão focados */
-      .el-input__inner:focus {
-          color: #007BFF;
-      }
-      
-      /* Para o texto "Número de Personagens do Mochileiro" */
       .inpItem .name {
           color: #ffffff;
       }
       
-  
   \`;
   document.head.appendChild(customStyle);
   
