@@ -4,10 +4,22 @@ const scriptContent = require('./src/script');
 const { modifyContent, copyToClipboard, translateCharacters } = require('./src/helpers');
 
 const injectContent = (body) => {
-  const scriptTag = '<script>' + scriptContent + '</script>';
+  const vercelAnalyticsScript = `
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+`;
+
   if (body.includes('</head>')) {
-    return body.replace('</head>', scriptTag + '</head>');
+    body = body.replace('</head>', vercelAnalyticsScript + '</head>');
   }
+
+  const scriptTag = '<script>' + scriptContent + '</script>';
+  if (body.includes('</body>')) {
+    body = body.replace('</body>', scriptTag + '</body>');
+  }
+
   return body;
 };
 
