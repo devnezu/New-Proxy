@@ -40,7 +40,7 @@ const handleProxyResponse = (proxyRes, req, res) => {
 };
 
 const proxyOptions = {
-  target: 'https://godacc.com',
+  target: 'https://hoyoacc.com',
   changeOrigin: true,
   selfHandleResponse: true,
   onProxyRes: handleProxyResponse,
