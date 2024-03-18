@@ -1,7 +1,5 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const styleContent = require('./src/style');
 const scriptContent = require('./src/script');
-const { modifyContent, copyToClipboard, translateCharacters } = require('./src/helpers');
 
 const injectContent = (body) => {
   const vercelAnalyticsScript = `
@@ -66,4 +64,3 @@ module.exports = (req, res) => {
   if (req.url.startsWith('/genshin/static')) return proxyStatic(req, res);
   return proxyMain(req, res);
 };
-
