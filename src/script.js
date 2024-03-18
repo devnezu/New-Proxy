@@ -66,7 +66,7 @@ const scriptContent = `
     'Servidor': 'Servidor da Conta',
     'Número_Limitado_de_Personagens': 'Número de Personagens Limitados',
     'Número_Limitado_de_Armas': 'Número de Personagens do Mochileiro',
-    'Número_de_armas': 'Número de Armas Limitadas',
+    'Número_de_armas': 'Número de Armas 5Estrelas',
     'Gênero': 'Gênero do Viajante',
     'Masculino': 'Masculino',
     'Feminino': 'Feminino',
@@ -105,6 +105,7 @@ const scriptContent = `
     }, 2000);
   };
 
+  // Function to automatically select America server
   const selectServerAmerica = () => {
     const serverDropdownItems = document.querySelectorAll('.el-select-dropdown__item span');
     const americaItem = Array.from(serverDropdownItems).find(item => item.textContent.trim().toLowerCase() === 'america');
@@ -113,28 +114,7 @@ const scriptContent = `
     }
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(selectServerAmerica, 3000);
-    setTimeout(() => {
-      translateContent();
-    }, 100);
-  });
-
-  function modifyContent() {
-    // Lógica para modificar o conteúdo aqui
-    return 'Conteúdo modificado';
-  }
-
-  function copyToClipboard(content) {
-    navigator.clipboard.writeText(content)
-      .then(() => {
-        console.log('Texto copiado para a área de transferência:', content);
-      })
-      .catch((err) => {
-        console.error('Falha ao copiar texto para a área de transferência:', err);
-      });
-  }
-
+  // Function to translate character names on copy
   function translateCharacters(str) {
     const translationMap = {
       '男': 'Masculino',
@@ -149,15 +129,43 @@ const scriptContent = `
     return str;
   }
 
-  document.addEventListener('copy', (event) => {
-    event.preventDefault();
-    const selectedText = document.getSelection().toString();
-    const translatedText = translateCharacters(selectedText);
-    event.clipboardData.setData('text/plain', translatedText);
-  });
+  // Modify copied text
+  function modifyText(text) {
+    console.log('Texto original:', text);
+    let modifiedText = text.replace('女', 'Lumine').replace('男', 'Aether').replace('级', '');
+    console.log('Texto modificado:', modifiedText);
+    return modifiedText;
+  }
 
+  // Copy modified content to clipboard
+  function copyToClipboard(content) {
+    navigator.clipboard.writeText(content)
+      .then(() => console.log('Conteúdo copiado para a área de transferência.'))
+      .catch(err => console.error('Erro ao copiar para a área de transferência:', err));
+  }
+
+  // Event listeners
   document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(selectServerAmerica, 3000);
     translateContent();
+  
+    setTimeout(() => {
+      // Esconder a div de compra
+      const shoppingDiv = document.querySelector('div.shoppaing.animate__animated.animate__bounce');
+      if (shoppingDiv) {
+          shoppingDiv.style.visibility = 'hidden';
+          console.log('Div de compra escondida (mantendo espaço) após 10 segundos.');
+      }
+      
+      // Esconder a div de idioma
+      const languageDivs = Array.from(document.querySelectorAll('.inpItem .name'));
+      const languageDiv = languageDivs.find(div => div.textContent.trim() === 'Idioma');
+      if (languageDiv) {
+        languageDiv.closest('.inpItem').style.visibility = 'hidden';
+        console.log('Div de idioma escondida (mantendo espaço).');
+      }
+    }, 3000);
+  
     const copyButton = document.querySelector('.copy-btn');
     if (copyButton) {
       copyButton.addEventListener('click', () => {
@@ -166,30 +174,16 @@ const scriptContent = `
       });
     }
   });
-
-  // Função para modificar o texto
-  function modifyText(text) {
-    console.log('Texto original:', text);
-    let modifiedText = text.replace('女', 'Lumine').replace('男', 'Aether').replace('级', '');
-    console.log('Texto modificado:', modifiedText);
-    return modifiedText;
-  }
-
-  // Adiciona o manipulador de eventos ao botão de cópia
-  document.addEventListener('DOMContentLoaded', () => {
-    const copyButton = document.querySelector('.copy-btn');
-    if (copyButton) {
-      copyButton.addEventListener('click', () => {
-        console.log('Botão de cópia pressionado.');
-        setTimeout(() => {
-          navigator.clipboard.readText().then((text) => {
-            const modifiedText = modifyText(text);
-            navigator.clipboard.writeText(modifiedText);
-          }).catch(err => console.error('Erro ao ler da área de transferência:', err));
-        }, 100); // Um breve atraso para capturar o texto
-      });
-    }
+  
+  document.addEventListener('copy', (event) => {
+    event.preventDefault();
+    const selectedText = document.getSelection().toString();
+    const translatedText = translateCharacters(selectedText);
+    event.clipboardData.setData('text/plain', translatedText);
   });
+  
+  
+  
 `;
 
 module.exports = scriptContent;
