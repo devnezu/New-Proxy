@@ -53,137 +53,142 @@ function modifyContent() {
   
 
 const scriptContent = `
-  const style = document.createElement('style');
-  style.innerHTML = \`${styleContent}\`;
-  document.head.appendChild(style);
+const style = document.createElement('style');
+style.innerHTML = \`${styleContent}\`; // Substitua styleContent pelo conteúdo CSS desejado
+document.head.appendChild(style);
 
-  const link = document.createElement('link');
-  link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap';
-  link.rel = 'stylesheet';
-  document.head.appendChild(link);
+const link = document.createElement('link');
+link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap';
+link.rel = 'stylesheet';
+link.defer = true;
+document.head.appendChild(link);
 
-  const translationMap = {
-    'Servidor': 'Servidor da Conta',
-    'Número_Limitado_de_Personagens': 'Número de Personagens Limitados',
-    'Número_Limitado_de_Armas': 'Número de Personagens do Mochileiro',
-    'Número_de_armas': 'Número de Armas 5Estrelas',
-    'Gênero': 'Gênero do Viajante',
-    'Masculino': 'Masculino',
-    'Feminino': 'Feminino',
-    'Linguagem': 'Idioma',
-    'Constellation level': 'Level de Constelação',
-    'Destino Entrelaçado': 'Destinos Entrelaçados',
-    'Gema Essencial': 'Quantidade de Gemas',
-    'Apenas 5 estrelas selecionados': 'Apenas os limitados selecionados',
-    'Apenas 4 estrelas selecionados': 'Apenas os mochileiros selecionados',
-    'Personagens_5_Estrelas': 'Personagens [5⭐ Stars]',
-    'Personagens_4_Estrelas': 'Personagens [4⭐ Stars]',
-    'Armas_5_Estrelas': 'Armas [5⭐ Stars]',
-    'Armas_4_Estrelas': 'Armas [4⭐ Stars]',
-    'Pesquisa': 'Combinações Rápidas',
-    'Sem_Dados': 'Selecione mais algumas opções para exibir as contas disponíveis',
-    'Procurar': 'Buscar',
-    'Resetar': 'Limpar',
-    'the life': 'C1',
-    'Second life': 'C2',
-    'Three lives': 'C3',
-    'Four lives': 'C4',
-    'Five lives': 'C5',
-    'Six lives': 'C6',
-  };
+const translationMap = {
+  'Servidor': 'Servidor da Conta',
+  'Número_Limitado_de_Personagens': 'Número de Personagens Limitados',
+  'Número_Limitado_de_Armas': 'Número de Personagens do Mochileiro',
+  'Número_de_armas': 'Número de Armas 5Estrelas',
+  'Gênero': 'Gênero do Viajante',
+  'Masculino': 'Masculino',
+  'Feminino': 'Feminino',
+  'Linguagem': 'Idioma',
+  'Constellation level': 'Level de Constelação',
+  'Destino Entrelaçado': 'Destinos Entrelaçados',
+  'Gema Essencial': 'Quantidade de Gemas',
+  'Apenas 5 estrelas selecionados': 'Apenas os limitados selecionados',
+  'Apenas 4 estrelas selecionados': 'Apenas os mochileiros selecionados',
+  'Personagens_5_Estrelas': 'Personagens [5⭐ Stars]',
+  'Personagens_4_Estrelas': 'Personagens [4⭐ Stars]',
+  'Armas_5_Estrelas': 'Armas [5⭐ Stars]',
+  'Armas_4_Estrelas': 'Armas [4⭐ Stars]',
+  'Pesquisa': 'Combinações Rápidas',
+  'Sem_Dados': 'Selecione mais algumas opções para exibir as contas disponíveis',
+  'Procurar': 'Buscar',
+  'Resetar': 'Limpar',
+  'the life': 'C1',
+  'Second life': 'C2',
+  'Three lives': 'C3',
+  'Four lives': 'C4',
+  'Five lives': 'C5',
+  'Six lives': 'C6',
+};
 
-  const translateContent = () => {
-    document.body.style.zoom = "75%";
+const translateContent = () => {
+  document.body.style.zoom = "75%";
 
-    setTimeout(() => {
-      document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item, .desc, .btnback span').forEach(element => {
-        const textContent = element.textContent.trim();
-        if (translationMap[textContent]) {
-          element.textContent = translationMap[textContent];
-        }
-      });
-    }, 2000);
-  };
+  setTimeout(() => {
+    const elements = document.querySelectorAll('.name, .el-select-dropdown__item span, .el-checkbox__label, .el-tabs__item, .desc, .btnback span');
+    elements.forEach(element => {
+      const textContent = element.textContent.trim();
+      if (translationMap[textContent]) {
+        element.textContent = translationMap[textContent];
+      }
+    });
+  }, 2000);
+};
 
-  // Function to automatically select America server
-  const selectServerAmerica = () => {
+const selectServerAmerica = () => {
+  setTimeout(() => {
     const serverDropdownItems = document.querySelectorAll('.el-select-dropdown__item span');
     const americaItem = Array.from(serverDropdownItems).find(item => item.textContent.trim().toLowerCase() === 'america');
     if (americaItem) {
       americaItem.click();
     }
+  }, 3000);
+};
+
+function translateCharacters(str) {
+  const characterTranslationMap = {
+    '男': 'Masculino',
+    '女': 'Feminino',
+    '级': '',
   };
 
-  // Function to translate character names on copy
-  function translateCharacters(str) {
-    const translationMap = {
-      '男': 'Masculino',
-      '女': 'Feminino',
-      '级': '',
-    };
+  for (const [key, value] of Object.entries(characterTranslationMap)) {
+    str = str.replace(new RegExp(key, 'g'), value);
+  }
 
-    for (const [key, value] of Object.entries(translationMap)) {
-      str = str.replace(new RegExp(key, 'g'), value);
+  return str;
+}
+
+function modifyText(text) {
+  let modifiedText = text.replace('女', 'Lumine').replace('男', 'Aether').replace('级', '');
+  return modifiedText;
+}
+
+function copyToClipboard(content) {
+  navigator.clipboard.writeText(content)
+    .then(() => console.log('Conteúdo copiado para a área de transferência.'))
+    .catch(err => console.error('Erro ao copiar para a área de transferência:', err));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.style.filter = 'blur(5px)';
+
+  selectServerAmerica();
+  translateContent();
+
+  setTimeout(() => {
+    const shoppingDiv = document.querySelector('div.shoppaing.animate__animated.animate__bounce');
+    if (shoppingDiv) {
+      shoppingDiv.style.visibility = 'hidden';
     }
 
-    return str;
-  }
+    const languageDivs = Array.from(document.querySelectorAll('.inpItem .name'));
+    const languageDiv = languageDivs.find(div => div.textContent.trim() === 'Idioma');
+    if (languageDiv) {
+      languageDiv.closest('.inpItem').style.visibility = 'hidden';
+    }
 
-  // Modify copied text
-  function modifyText(text) {
-    console.log('Texto original:', text);
-    let modifiedText = text.replace('女', 'Lumine').replace('男', 'Aether').replace('级', '');
-    console.log('Texto modificado:', modifiedText);
-    return modifiedText;
-  }
+    const topLanguageDiv = document.querySelector('.top_language');
+    if (topLanguageDiv) {
+      topLanguageDiv.style.visibility = 'hidden';
+    }
 
-  // Copy modified content to clipboard
-  function copyToClipboard(content) {
-    navigator.clipboard.writeText(content)
-      .then(() => console.log('Conteúdo copiado para a área de transferência.'))
-      .catch(err => console.error('Erro ao copiar para a área de transferência:', err));
-  }
-
-  // Event listeners
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(selectServerAmerica, 3000);
-    translateContent();
-  
     setTimeout(() => {
-      // Esconder a div de compra
-      const shoppingDiv = document.querySelector('div.shoppaing.animate__animated.animate__bounce');
-      if (shoppingDiv) {
-          shoppingDiv.style.visibility = 'hidden';
-          console.log('Div de compra escondida (mantendo espaço) após 10 segundos.');
-      }
-      
-      // Esconder a div de idioma
-      const languageDivs = Array.from(document.querySelectorAll('.inpItem .name'));
-      const languageDiv = languageDivs.find(div => div.textContent.trim() === 'Idioma');
-      if (languageDiv) {
-        languageDiv.closest('.inpItem').style.visibility = 'hidden';
-        console.log('Div de idioma escondida (mantendo espaço).');
-      }
-    }, 3000);
-  
-    const copyButton = document.querySelector('.copy-btn');
-    if (copyButton) {
-      copyButton.addEventListener('click', () => {
-        const modifiedContent = modifyContent();
-        copyToClipboard(modifiedContent);
-      });
-    }
-  });
-  
-  document.addEventListener('copy', (event) => {
-    event.preventDefault();
-    const selectedText = document.getSelection().toString();
-    const translatedText = translateCharacters(selectedText);
-    event.clipboardData.setData('text/plain', translatedText);
-  });
-  
-  
-  
+      document.body.style.filter = 'none';
+    }, 1000);
+
+  }, 10000);
+
+  const copyButton = document.querySelector('.copy-btn');
+  if (copyButton) {
+    copyButton.addEventListener('click', () => {
+      const selectedText = document.getSelection().toString();
+      const modifiedContent = translateCharacters(selectedText);
+      copyToClipboard(modifiedContent);
+    });
+  }
+});
+
+document.addEventListener('copy', (event) => {
+  event.preventDefault();
+  const selectedText = document.getSelection().toString();
+  const translatedText = translateCharacters(selectedText);
+  event.clipboardData.setData('text/plain', translatedText);
+});
+
+    
 `;
 
 module.exports = scriptContent;
