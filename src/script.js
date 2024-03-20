@@ -26,7 +26,6 @@ function modifyContent() {
 
   return translateCharacters(modifiedContent);
 }
-
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text)
     .then(() => {
@@ -56,10 +55,16 @@ function translateCharacters(str) {
   for (const [key, value] of Object.entries(translationMap)) {
     str = str.replace(new RegExp(key, 'g'), value);
   }
-  
+
+  let parts = str.split('----');
+
   // Remover o caractere '#' do accountNumber
-  const parts = str.split('----');
   parts[0] = parts[0].replace('#', '');
+  
+  // Adicionar LVL{level}
+  const level = parts[3].trim();
+  parts[3] = \`LVL\${level}\`;
+
   str = parts.join('----');
 
   return str;
