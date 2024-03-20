@@ -1,4 +1,5 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const express = require('express');
 const scriptContent = require('./src/script');
 
 const injectContent = (body) => {
@@ -21,6 +22,8 @@ const injectContent = (body) => {
   return body;
 };
 
+const app = express();
+
 const handleProxyResponse = (proxyRes, req, res) => {
   if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
     let bodyChunks = [];
@@ -40,27 +43,31 @@ const handleProxyResponse = (proxyRes, req, res) => {
 const proxyOptions = {
   target: 'https://hoyoacc.com',
   changeOrigin: true,
+  secure: false, 
   selfHandleResponse: true,
   onProxyRes: handleProxyResponse,
 };
 
-const proxyAPI = createProxyMiddleware({
+
+const proxyAPI = createProxyMiddleware('/api', {
   ...proxyOptions,
   pathRewrite: { '^/api/': '/api/' },
 });
 
-const proxyStatic = createProxyMiddleware({
+const proxyStatic = createProxyMiddleware('/genshin/static', {
   ...proxyOptions,
   pathRewrite: { '^/genshin/static/': '/genshin/static/' },
 });
 
-const proxyMain = createProxyMiddleware({
+const proxyMain = createProxyMiddleware('/', {
   ...proxyOptions,
   pathRewrite: { '^/': '/genshin/' },
 });
 
-module.exports = (req, res) => {
-  if (req.url.startsWith('/api')) return proxyAPI(req, res);
-  if (req.url.startsWith('/genshin/static')) return proxyStatic(req, res);
-  return proxyMain(req, res);
-};
+app.use(proxyAPI);
+app.use(proxyStatic);
+app.use(proxyMain);
+
+app.listen(5001, () => {
+  console.log('Servidor rodando na porta 5000');
+});
