@@ -14,18 +14,9 @@ function modifyContent() {
 
   const modifiedContent = `${accountNumber}----${server}----${gender}----${levelWithVariable}----[${characters}]----[${weapons}]`;
 
-  const addToCartButton = document.querySelector('button.el-button--text.el-button--small span');
-  if (addToCartButton) {
-    addToCartButton.parentElement.remove();
-  }
-
-  const shoppingDiv = document.querySelector('div.shopping.animate__animated.animate__bounce');
-  if (shoppingDiv) {
-    shoppingDiv.remove();
-  }
-
   return translateCharacters(modifiedContent);
 }
+
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text)
     .then(() => {
@@ -139,31 +130,62 @@ const createLoadingScreen = () => {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    color: white;
+    font-family: 'Poppins', sans-serif;
   \`;
   loadingScreen.innerHTML = \`
-    <div style="display: flex; align-items: center;">
-      <div class="spinner" style="margin-right: 20px;"></div>
-      <span style="font-size: 2rem; color: black;">Carregando... Por favor, aguarde.</span>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <div class="spinner"></div>
+      <h2 id="loadingScreenMessage" style="margin-bottom: 10px; font-size: 3rem;">Preparando tudo para você...</h2>
+      <p style="text-align: center; max-width: 600px; font-size: 1.5rem;">Essa tela ficará totalmente embaçada enquanto ocultamos e traduzimos os elementos. Quando estiver pronto, você será notificado.</p>
     </div>
   \`;
   const spinnerStyle = document.createElement('style');
   spinnerStyle.innerHTML = \`
     .spinner {
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #3498db;
+      width: 80px;
+      height: 80px;
+      border: 10px solid #f3f3f3;
+      border-top: 10px solid #3498db;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
       animation: spin 2s linear infinite;
     }
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+    @media (max-width: 768px) {
+      #loadingScreenMessage {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1.2rem;
+        max-width: 400px;
+      }
+      .spinner {
+        width: 60px;
+        height: 60px;
+        border-width: 8px;
+      }
+    }
+    @media (max-width: 480px) {
+      #loadingScreenMessage {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 1rem;
+        max-width: 300px;
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border-width: 6px;
+      }
     }
   \`;
   document.head.appendChild(spinnerStyle);
@@ -177,13 +199,27 @@ const removeLoadingScreen = () => {
   }
 };
 
+const updateLoadingScreenMessage = (message) => {
+  const loadingScreenMessage = document.getElementById('loadingScreenMessage');
+  if (loadingScreenMessage) {
+    loadingScreenMessage.textContent = message;
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   createLoadingScreen();
   selectServerAmerica();
   translateContent();
 
+  // Aplicar blur ainda mais alto inicialmente
+  const pageElements = document.querySelectorAll('body > *:not(#loadingScreen)');
+  pageElements.forEach(element => {
+    element.dataset.blur = 30;
+    element.style.filter = 'blur(30px)';
+  });
+
   setTimeout(() => {
-    const shoppingDiv = document.querySelector('div.shopping.animate__animated.animate__bounce');
+    const shoppingDiv = document.querySelector('div.shoppaing.animate__animated.animate__bounce');
     if (shoppingDiv) {
       shoppingDiv.style.visibility = 'hidden';
     }
@@ -199,14 +235,9 @@ document.addEventListener('DOMContentLoaded', () => {
       topLanguageDiv.style.visibility = 'hidden';
     }
 
-    const elementsToUnblur = document.querySelectorAll('body > *');
-    elementsToUnblur.forEach(element => {
-      element.dataset.blur = 5;
-    });
-
     const intervalId = setInterval(() => {
       let allCleared = true;
-      elementsToUnblur.forEach(element => {
+      pageElements.forEach(element => {
         let blurValue = parseFloat(element.dataset.blur);
         blurValue = Math.max(0, blurValue - 0.5);
         element.style.filter = 'blur(' + blurValue + 'px)';
@@ -219,7 +250,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (allCleared) {
         clearInterval(intervalId);
-        removeLoadingScreen();
+        updateLoadingScreenMessage('Tudo pronto! Boa escolha!');
+        setTimeout(removeLoadingScreen, 2000);
       }
     }, 100);
   }, 3000);
