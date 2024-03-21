@@ -142,7 +142,6 @@ const createLoadingScreen = () => {
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="spinner"></div>
       <h2 id="loadingScreenMessage" style="margin-bottom: 10px; font-size: 3rem;">Preparando tudo para você...</h2>
-      <p style="text-align: center; max-width: 600px; font-size: 1.5rem;">Essa tela ficará totalmente embaçada enquanto ocultamos e traduzimos os elementos. Quando estiver pronto, você será notificado.</p>
     </div>
   \`;
   const spinnerStyle = document.createElement('style');
@@ -250,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (allCleared) {
         clearInterval(intervalId);
-        updateLoadingScreenMessage('Tudo pronto! Boa escolha!');
+        updateLoadingScreenMessage('Agradecemos por ter aguardado, boas compras!');
         setTimeout(removeLoadingScreen, 2000);
       }
     }, 100);
